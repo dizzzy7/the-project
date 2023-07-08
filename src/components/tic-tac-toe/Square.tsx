@@ -8,7 +8,7 @@ export type SquareProps = {
 export default function Square(props: SquareProps) {
   return (
     <button
-      className='bg-slate-50 text-black aspect-square inline-block w-20 font-bold text-5xl'
+      className='bg-slate-50 text-slate-800 aspect-square inline-block w-20 font-bold text-5xl'
       onClick={props.onClick}
     >
       {props.value}
