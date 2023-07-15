@@ -1,9 +1,11 @@
 import Head from 'next/head';
 
 import '@/app/globals.css';
+
 import TodoList, { Todo } from '@/components/todo/TodoList';
-import { useState } from 'react';
 import TodoEditor from '@/components/todo/TodoEditor';
+
+import { useState } from 'react';
 import { clx } from '@/utils/clx';
 
 const richTextClasses = clx(
