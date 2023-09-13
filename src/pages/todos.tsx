@@ -55,6 +55,7 @@ export default function Todos() {
               todos={todos}
               onChange={setTodos}
               className='w-96 max-w-full'
+              loadTodo={(todoIndex: number) => {}}
             />
             <TodoEditor
               className='grow'
