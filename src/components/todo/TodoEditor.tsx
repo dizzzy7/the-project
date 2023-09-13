@@ -1,12 +1,13 @@
 import { clx } from '@/utils/clx';
 import { useEditor, EditorContent } from '@tiptap/react';
 import Starterkit from '@tiptap/starter-kit';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export type TodoEditorProps = {
   richTextClasses: string;
   onSubmit: (title: string, content: string) => void;
   className?: string;
+  initialEditorContent?: string;
 };
 
 export default function TodoEditor(props: TodoEditorProps) {
@@ -26,6 +27,16 @@ export default function TodoEditor(props: TodoEditorProps) {
       <hr>
     `,
   });
+
+  /**
+   * if there is the need, load in some content initially
+   *
+   * This will help with
+   *  */
+  useEffect(() => {
+    if (props.initialEditorContent) {
+    }
+  }, [props.initialEditorContent]);
 
   const [titleInputValue, setTitleInputValue] = useState<string>('');
 
