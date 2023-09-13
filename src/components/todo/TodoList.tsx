@@ -4,6 +4,22 @@ import { ReactNode, useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 import DOMPurify from 'isomorphic-dompurify';
 
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+
 export type Todo = {
   id: number;
   title: string;
@@ -16,6 +32,7 @@ export type TodoListProps = {
   onChange: (todos: Todo[]) => void;
   richTextClasses: string;
   className?: string;
+  loadTodo: (todoId: number) => void;
 };
 
 export default function TodoList(props: TodoListProps) {
@@ -43,7 +60,18 @@ export default function TodoList(props: TodoListProps) {
                   : setActiveTodoIndex(null);
               }}
             >
-              {todo.title}
+              {
+                <div className='flex justify-between'>
+                  {todo.title}
+                  <div
+                    onClick={() => {
+                      props.loadTodo(todoIndex);
+                    }}
+                  >
+                    EDIT
+                  </div>
+                </div>
+              }
             </Disclosure.Button>
             <AnimateHeight
               duration={400}
