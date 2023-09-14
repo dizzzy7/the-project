@@ -41,12 +41,10 @@ export default function TicTacToeGame(
         }
       }
 
-      console.log(squares);
-
       if (squares.every((square) => square !== null)) {
-        console.log('THis happened. Its a tiew');
         return 'Tie';
       }
+
       return null;
     },
     [squares]
@@ -102,7 +100,7 @@ export default function TicTacToeGame(
       <div className={clx('text-center text-2xl mt-5 relative w-max mx-auto')}>
         <div
           className={clx(
-            winner && 'bg-emerald-200 rounded animate-pulse ',
+            (squares.every((square) => square !== null)) ? 'bg-yellow-100' : winner && 'bg-emerald-200 rounded animate-pulse ',
             'absolute inset-0'
           )}
         ></div>
@@ -114,25 +112,25 @@ export default function TicTacToeGame(
         )}
       >
         <div className={clx('board-row', 'gap-1 flex justify-between')}>
-          <Square onClick={(e) => handleClick(0)} value={squares[0]} />
-          <Square onClick={(e) => handleClick(1)} value={squares[1]} />
-          <Square onClick={(e) => handleClick(2)} value={squares[2]} />
+          <Square onClick={() => handleClick(0)} value={squares[0]} />
+          <Square onClick={() => handleClick(1)} value={squares[1]} />
+          <Square onClick={() => handleClick(2)} value={squares[2]} />
         </div>
         <div className={clx('board-row', 'gap-1 flex justify-between')}>
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(3);
             }}
             value={squares[3]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(4);
             }}
             value={squares[4]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(5);
             }}
             value={squares[5]}
@@ -140,19 +138,19 @@ export default function TicTacToeGame(
         </div>
         <div className={clx('board-row', 'gap-1 flex justify-between')}>
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(6);
             }}
             value={squares[6]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(7);
             }}
             value={squares[7]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(8);
             }}
             value={squares[8]}
