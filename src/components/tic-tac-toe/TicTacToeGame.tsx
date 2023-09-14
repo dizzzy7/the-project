@@ -37,8 +37,15 @@ export default function TicTacToeGame(
           squares[a] === squares[b] &&
           squares[a] === squares[c]
         ) {
-          return squares[a];
+          return `Winner: ${squares[a]}`;
         }
+      }
+
+      console.log(squares);
+
+      if (squares.every((square) => square !== null)) {
+        console.log('THis happened. Its a tiew');
+        return 'Tie';
       }
       return null;
     },
@@ -54,7 +61,7 @@ export default function TicTacToeGame(
   let status;
 
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = winner;
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
