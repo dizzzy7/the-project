@@ -79,13 +79,11 @@ export default function TicTacToeGame(
 
     const winner = calculateWinner(nextSquares);
 
-    if (winner && winner === 'O') {
-      console.log(winner);
+    if (winner && xIsNext === false) {
       const newScore = [...score];
       newScore[0]++;
       setScore(newScore);
-    } else if (winner && winner === 'X') {
-      console.log(winner);
+    } else if (winner && xIsNext === true) {
       const newScore = [...score];
       newScore[1]++;
       setScore(newScore);
@@ -100,7 +98,7 @@ export default function TicTacToeGame(
       <div className={clx('text-center text-2xl mt-5 relative w-max mx-auto')}>
         <div
           className={clx(
-            (squares.every((square) => square !== null)) ? 'bg-yellow-100' : winner && 'bg-emerald-200 rounded animate-pulse ',
+            winner === 'Tie' ? 'bg-yellow-100' : winner && 'bg-emerald-200 rounded animate-pulse ',
             'absolute inset-0'
           )}
         ></div>
