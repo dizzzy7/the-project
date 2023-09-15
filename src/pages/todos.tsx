@@ -84,17 +84,33 @@ export default function Todos() {
               richTextClasses={richTextClasses}
               todoTitle={todos[currentTodoIndex].title}
               todoContent={todos[currentTodoIndex].content}
-              onSubmit={(newTodoTitle, newTodoContent) => {
-                const newTodos = [
-                  ...todos,
-                  {
-                    id: todos[todos.length - 1].id + 1,
-                    title: newTodoTitle,
-                    content: newTodoContent,
-                    done: false,
-                  },
-                ];
-                setTodos(newTodos);
+              todoId={todos[currentTodoIndex].id}
+              onSubmit={(
+                newTodoTitle,
+                newTodoContent,
+                todoId: number | null = null
+              ) => {
+                const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+
+                // save todo if it is new, else just overwrite
+                if (todoIndex === -1) {
+                  const newTodos = [
+                    ...todos,
+                    {
+                      id: todos[todos.length - 1].id + 1,
+                      title: newTodoTitle,
+                      content: newTodoContent,
+                      done: false,
+                    },
+                  ];
+                  setTodos(newTodos);
+                } else {
+                  const newTodos = [...todos];
+
+                  newTodos[todoIndex].title = newTodoTitle;
+                  newTodos[todoIndex].content = newTodoContent;
+                  setTodos(newTodos);
+                }
               }}
             />
           </div>

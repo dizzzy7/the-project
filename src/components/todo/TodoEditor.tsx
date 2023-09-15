@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 
 export type TodoEditorProps = {
   richTextClasses: string;
-  onSubmit: (title: string, content: string) => void;
+  onSubmit: (title: string, content: string, id: number) => void;
   className?: string;
   todoTitle: string;
   todoContent: string;
+  todoId: number;
 };
 
 export default function TodoEditor(props: TodoEditorProps) {
@@ -69,7 +70,7 @@ export default function TodoEditor(props: TodoEditorProps) {
               todoTitle = firstTagContent;
             }
 
-            props.onSubmit(todoTitle, editor.getHTML());
+            props.onSubmit(todoTitle, editor.getHTML(), props.todoId);
             editor.commands.setContent('');
             setTitleInputValue('');
           }
