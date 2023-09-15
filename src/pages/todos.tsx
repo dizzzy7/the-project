@@ -35,7 +35,27 @@ export default function Todos() {
       `,
       done: false,
     },
+    {
+      id: 2,
+      title: 'Third Todo',
+      content: `
+        <h2>Hello World!</h2>
+        <h3>Hello World!</h3>
+        <h4>Hello World!</h4>
+        <h5>Hello World!</h5>
+        <ul>
+          <li>This is a thing</li>
+          <li>This is the second thing</li>
+          <li>This is the third thing</li>
+          <li>This is the fourth thing</li>
+        </ul>
+        <hr>
+      `,
+      done: false,
+    },
   ]);
+
+  const [currentTodoIndex, setCurrentTodoIndex] = useState<number>(0);
 
   return (
     <>
@@ -55,11 +75,15 @@ export default function Todos() {
               todos={todos}
               onChange={setTodos}
               className='w-96 max-w-full'
-              loadTodo={(todoIndex: number) => {}}
+              loadTodo={(todoIndex: number) => {
+                console.log(todoIndex);
+              }}
             />
             <TodoEditor
               className='grow'
               richTextClasses={richTextClasses}
+              todoTitle={todos[currentTodoIndex].title}
+              todoContent={todos[currentTodoIndex].content}
               onSubmit={(newTodoTitle, newTodoContent) => {
                 const newTodos = [
                   ...todos,
