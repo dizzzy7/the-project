@@ -7,25 +7,14 @@ export type TodoEditorProps = {
   richTextClasses: string;
   onSubmit: (title: string, content: string) => void;
   className?: string;
-  initialEditorContent?: string;
+  todoTitle: string;
+  todoContent: string;
 };
 
 export default function TodoEditor(props: TodoEditorProps) {
   const editor = useEditor({
     extensions: [Starterkit],
-    content: `
-      <h2>Hello World!</h2>
-      <h3>Hello World!</h3>
-      <h4>Hello World!</h4>
-      <h5>Hello World!</h5>
-      <ul>
-        <li>This is a thing</li>
-        <li>This is the second thing</li>
-        <li>This is the third thing</li>
-        <li>This is the fourth thing</li>
-      </ul>
-      <hr>
-    `,
+    content: props.todoContent,
   });
 
   /**
@@ -33,12 +22,10 @@ export default function TodoEditor(props: TodoEditorProps) {
    *
    * This will help with
    *  */
-  useEffect(() => {
-    if (props.initialEditorContent) {
-    }
-  }, [props.initialEditorContent]);
 
-  const [titleInputValue, setTitleInputValue] = useState<string>('');
+  const [titleInputValue, setTitleInputValue] = useState<string>(
+    props.todoTitle
+  );
 
   return (
     <div
