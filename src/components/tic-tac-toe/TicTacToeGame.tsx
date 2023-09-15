@@ -37,9 +37,14 @@ export default function TicTacToeGame(
           squares[a] === squares[b] &&
           squares[a] === squares[c]
         ) {
-          return squares[a];
+          return `Winner: ${squares[a]}`;
         }
       }
+
+      if (squares.every((square) => square !== null)) {
+        return 'Tie';
+      }
+
       return null;
     },
     [squares]
@@ -54,7 +59,7 @@ export default function TicTacToeGame(
   let status;
 
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = winner;
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
@@ -74,13 +79,11 @@ export default function TicTacToeGame(
 
     const winner = calculateWinner(nextSquares);
 
-    if (winner && winner === 'O') {
-      console.log(winner);
+    if (winner && xIsNext === false) {
       const newScore = [...score];
       newScore[0]++;
       setScore(newScore);
-    } else if (winner && winner === 'X') {
-      console.log(winner);
+    } else if (winner && xIsNext === true) {
       const newScore = [...score];
       newScore[1]++;
       setScore(newScore);
@@ -95,7 +98,7 @@ export default function TicTacToeGame(
       <div className={clx('text-center text-2xl mt-5 relative w-max mx-auto')}>
         <div
           className={clx(
-            winner && 'bg-emerald-200 rounded animate-pulse ',
+            winner === 'Tie' ? 'bg-yellow-100' : winner && 'bg-emerald-200 rounded animate-pulse ',
             'absolute inset-0'
           )}
         ></div>
@@ -107,25 +110,25 @@ export default function TicTacToeGame(
         )}
       >
         <div className={clx('board-row', 'gap-1 flex justify-between')}>
-          <Square onClick={(e) => handleClick(0)} value={squares[0]} />
-          <Square onClick={(e) => handleClick(1)} value={squares[1]} />
-          <Square onClick={(e) => handleClick(2)} value={squares[2]} />
+          <Square onClick={() => handleClick(0)} value={squares[0]} />
+          <Square onClick={() => handleClick(1)} value={squares[1]} />
+          <Square onClick={() => handleClick(2)} value={squares[2]} />
         </div>
         <div className={clx('board-row', 'gap-1 flex justify-between')}>
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(3);
             }}
             value={squares[3]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(4);
             }}
             value={squares[4]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(5);
             }}
             value={squares[5]}
@@ -133,19 +136,19 @@ export default function TicTacToeGame(
         </div>
         <div className={clx('board-row', 'gap-1 flex justify-between')}>
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(6);
             }}
             value={squares[6]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(7);
             }}
             value={squares[7]}
           />
           <Square
-            onClick={(e) => {
+            onClick={() => {
               handleClick(8);
             }}
             value={squares[8]}
