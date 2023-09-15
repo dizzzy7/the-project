@@ -27,6 +27,11 @@ export default function TodoEditor(props: TodoEditorProps) {
     props.todoTitle
   );
 
+  useEffect(() => {
+    editor?.commands.setContent(props.todoContent);
+    setTitleInputValue(props.todoTitle);
+  }, [props.todoContent, props.todoTitle]);
+
   return (
     <div
       className={clx(

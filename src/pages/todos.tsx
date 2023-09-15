@@ -76,7 +76,7 @@ export default function Todos() {
               onChange={setTodos}
               className='w-96 max-w-full'
               loadTodo={(todoIndex: number) => {
-                console.log(todoIndex);
+                setCurrentTodoIndex(todoIndex);
               }}
             />
             <TodoEditor
