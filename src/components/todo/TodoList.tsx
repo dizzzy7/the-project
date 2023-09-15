@@ -23,7 +23,7 @@ import {
 export type Todo = {
   id: number;
   title: string;
-  content: ReactNode;
+  content: string;
   done: boolean;
 };
 
