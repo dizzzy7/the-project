@@ -2,30 +2,19 @@ import { clx } from '@/utils/clx';
 import { useEditor, EditorContent } from '@tiptap/react';
 import Starterkit from '@tiptap/starter-kit';
 import { useEffect, useState } from 'react';
+import { Todo } from './TodoList';
 
 export type TodoEditorProps = {
   richTextClasses: string;
-  onSubmit: (title: string, content: string) => void;
+  onSubmit: (title: string, content: string, id: number) => void;
   className?: string;
-  initialEditorContent?: string;
+  todo: Todo;
 };
 
 export default function TodoEditor(props: TodoEditorProps) {
   const editor = useEditor({
     extensions: [Starterkit],
-    content: `
-      <h2>Hello World!</h2>
-      <h3>Hello World!</h3>
-      <h4>Hello World!</h4>
-      <h5>Hello World!</h5>
-      <ul>
-        <li>This is a thing</li>
-        <li>This is the second thing</li>
-        <li>This is the third thing</li>
-        <li>This is the fourth thing</li>
-      </ul>
-      <hr>
-    `,
+    content: props.todo.content,
   });
 
   /**
@@ -33,12 +22,15 @@ export default function TodoEditor(props: TodoEditorProps) {
    *
    * This will help with
    *  */
-  useEffect(() => {
-    if (props.initialEditorContent) {
-    }
-  }, [props.initialEditorContent]);
 
-  const [titleInputValue, setTitleInputValue] = useState<string>('');
+  const [titleInputValue, setTitleInputValue] = useState<string>(
+    props.todo.title
+  );
+
+  useEffect(() => {
+    editor?.commands.setContent(props.todo.content);
+    setTitleInputValue(props.todo.title);
+  }, [props.todo.content, props.todo.title]);
 
   return (
     <div
@@ -77,7 +69,7 @@ export default function TodoEditor(props: TodoEditorProps) {
               todoTitle = firstTagContent;
             }
 
-            props.onSubmit(todoTitle, editor.getHTML());
+            props.onSubmit(todoTitle, editor.getHTML(), props.todo.id);
             editor.commands.setContent('');
             setTitleInputValue('');
           }
