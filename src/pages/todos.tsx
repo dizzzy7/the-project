@@ -82,9 +82,7 @@ export default function Todos() {
             <TodoEditor
               className='grow'
               richTextClasses={richTextClasses}
-              todoTitle={todos[currentTodoIndex].title}
-              todoContent={todos[currentTodoIndex].content}
-              todoId={todos[currentTodoIndex].id}
+              todo={todos[currentTodoIndex]}
               onSubmit={(
                 newTodoTitle,
                 newTodoContent,
