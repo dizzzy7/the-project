@@ -94,7 +94,7 @@ export default function Todos() {
                     <span></span>
                   </label>
                   <div>
-                    <p>Second Sub Task of Second Task</p>
+                    <p>Second Sub Task</p>
                   </div>
                 </li>
               </ul>
@@ -208,6 +208,7 @@ export default function Todos() {
                     },
                   ];
                   setTodos(newTodos);
+                  setActiveTodoIndex(null)
                 } else {
                   const newTodos = [...todos];
 
