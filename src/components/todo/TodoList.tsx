@@ -36,7 +36,10 @@ export type TodoListProps = {
   addTodo: () => void;
   deleteTodo: (index: number) => void;
   activeTodoIndex: number | null;
+  previewTodoIndex: number | null;
   setActiveTodoIndex: (index: number | null) => void;
+  setPreviewTodoIndex: (index: number | null) => void;
+  previewTodo: (index: number | null) => void;
 };
 
 export default function TodoList(props: TodoListProps) {
@@ -77,10 +80,9 @@ export default function TodoList(props: TodoListProps) {
           >
             <Disclosure.Button
               className='w-full pl-3 text-left'
-              onClick={() => {
-                todoIndex !== props.activeTodoIndex
-                  ? props.setActiveTodoIndex(todoIndex)
-                  : props.setActiveTodoIndex(null);
+              onClick={(e) => {
+                  props.previewTodo(todoIndex);
+                  e.stopPropagation()
               }}
             >
               {
@@ -112,7 +114,6 @@ export default function TodoList(props: TodoListProps) {
                     <div
                       className='py-2 pr-3'
                       onClick={(e) => {
-                        console.log(todoIndex);
                         props.loadTodo(todoIndex);
                         e.stopPropagation();
                       }}
@@ -138,8 +139,7 @@ export default function TodoList(props: TodoListProps) {
             </Disclosure.Button>
             <AnimateHeight
               duration={400}
-              // only show maximum of 200 if the height of the content is greater, else do auto
-              height={props.activeTodoIndex === todoIndex ? 'auto' : 0}
+              height={props.previewTodoIndex === todoIndex ? 'auto' : 0}
             >
               <div
                 className={clx(

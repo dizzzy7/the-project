@@ -64,6 +64,7 @@ export default function Todos() {
   ]);
 
   const [activeTodoIndex, setActiveTodoIndex] = useState<number | null>(null);
+  const [previewTodoIndex, setPreviewTodoIndex] = useState<number | null>(null);
 
   const editorRef = useRef<{
     title: HTMLInputElement | null;
@@ -122,8 +123,17 @@ export default function Todos() {
               loadTodo={(todoIndex: number) => {
                 setActiveTodoIndex(todoIndex);
               }}
+              previewTodo={(todoIndex) => {
+                if (todoIndex === previewTodoIndex) {
+                  setPreviewTodoIndex(null)
+                } else {
+                  setPreviewTodoIndex(todoIndex)
+                }
+              }}
               activeTodoIndex={activeTodoIndex}
+              previewTodoIndex={previewTodoIndex}
               setActiveTodoIndex={setActiveTodoIndex}
+              setPreviewTodoIndex={setPreviewTodoIndex}
               addTodo={addTodo}
               deleteTodo={deleteTodo}
             />
