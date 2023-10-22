@@ -5,26 +5,34 @@ import '@/app/globals.css';
 import TodoList, { Todo } from '@/components/todo/TodoList';
 import TodoEditor from '@/components/todo/TodoEditor';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { clx } from '@/utils/clx';
+import { v4 as uuidv4 } from 'uuid';
+import Link from 'next/link';
 
 const richTextClasses = clx(
-  'prose prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-3xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
+  'prose prose-ul:pl-2 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-3xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
   'prose-h2:mt-0 prose-h3:mb-2 prose-h4:mb-2 prose-li:my-0',
-  'prose-p:my-1 prose-ul:my-4 prose-hr:my-4'
+  'prose-p:my-1 prose-hr:my-4 prose-ul:my-2'
 );
 
 export default function Todos() {
   const [todos, setTodos] = useState<Todo[]>([
     {
-      id: 0,
-      title: 'Laundry',
-      content:
-        "Go do the laundry before bedtime. It's gonna be a dark colored clothes wash.",
+      id: uuidv4(),
+      title: 'Buy some grocieries',
+      content: `
+        <ul>
+          <li>Peppers</li>
+          <li>Milk</li>
+          <li></li>
+        </ul>
+        <input type="checkbox">
+      `,
       done: false,
     },
     {
-      id: 1,
+      id: uuidv4(),
       title: 'Get the groceries',
       content: `
         <ul>
@@ -36,7 +44,7 @@ export default function Todos() {
       done: false,
     },
     {
-      id: 2,
+      id: uuidv4(),
       title: 'Third Todo',
       content: `
         <h2>Hello World!</h2>
@@ -55,7 +63,43 @@ export default function Todos() {
     },
   ]);
 
-  const [currentTodoIndex, setCurrentTodoIndex] = useState<number>(0);
+  const [currentTodoIndex, setCurrentTodoIndex] = useState<number | null>(null);
+
+  const editorRef = useRef<{
+    title: HTMLInputElement | null;
+    content: HTMLInputElement | null;
+  }>({
+    title: null,
+    content: null,
+  });
+
+  const addTodo = () => {
+    const newTodo: Todo = {
+      id: uuidv4(),
+      content: '',
+      title: '',
+      done: false,
+    };
+
+    setTodos([newTodo, ...todos]);
+
+    setCurrentTodoIndex(0);
+    console.log(todos[0]);
+  };
+
+  const deleteTodo = (index: number) => {
+    const result = [...todos];
+
+    result.splice(index, 1);
+
+    setTodos(result);
+
+    setCurrentTodoIndex(null);
+  };
+
+  useEffect(() => {
+    console.log(todos[0]);
+  }, []);
 
   return (
     <>
@@ -68,6 +112,11 @@ export default function Todos() {
       </Head>
       <div>
         <div className='container mx-auto'>
+          <div className='mt-10'>
+            <Link className='text-3xl' href={'/'}>
+              ↞ <span className='text-2xl'>Zurück</span>
+            </Link>
+          </div>
           <h1 className='text-5xl text-center mt-10 mb-10'>Todos</h1>
           <div className='flex w-full'>
             <TodoList
@@ -78,16 +127,18 @@ export default function Todos() {
               loadTodo={(todoIndex: number) => {
                 setCurrentTodoIndex(todoIndex);
               }}
+              addTodo={addTodo}
+              deleteTodo={deleteTodo}
             />
             <TodoEditor
               className='grow'
               richTextClasses={richTextClasses}
-              todo={todos[currentTodoIndex]}
-              onSubmit={(
-                newTodoTitle,
-                newTodoContent,
-                todoId: number | null = null
-              ) => {
+              todo={currentTodoIndex ? todos[currentTodoIndex] : null}
+              editorRef={editorRef}
+              onSubmit={(newTodoTitle, newTodoContent, todoId) => {
+                if (todoId === null) {
+                  todoId = uuidv4();
+                }
                 const todoIndex = todos.findIndex((todo) => todo.id === todoId);
 
                 // save todo if it is new, else just overwrite
@@ -95,7 +146,7 @@ export default function Todos() {
                   const newTodos = [
                     ...todos,
                     {
-                      id: todos[todos.length - 1].id + 1,
+                      id: uuidv4(),
                       title: newTodoTitle,
                       content: newTodoContent,
                       done: false,
