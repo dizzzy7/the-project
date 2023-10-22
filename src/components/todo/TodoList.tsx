@@ -40,6 +40,7 @@ export type TodoListProps = {
   setActiveTodoIndex: (index: number | null) => void;
   setPreviewTodoIndex: (index: number | null) => void;
   previewTodo: (index: number | null) => void;
+  toggleTodoDone: (index: number) => void;
 };
 
 export default function TodoList(props: TodoListProps) {
@@ -87,8 +88,9 @@ export default function TodoList(props: TodoListProps) {
             >
               {
                 <div className='flex justify-between'>
-                  <div className='py-2'>{todo.title}</div>
+                  <div className={clx(todo.done && 'line-through', 'py-2')}>{todo.title}</div>
                   <div className='flex'>
+                    <div className='' onClick={() => props.toggleTodoDone(todoIndex)}>[{todo.done && 'X'} ]</div>
                     <div
                       className='py-2 pr-2'
                       onClick={(e) => {

@@ -134,6 +134,11 @@ export default function Todos() {
               previewTodoIndex={previewTodoIndex}
               setActiveTodoIndex={setActiveTodoIndex}
               setPreviewTodoIndex={setPreviewTodoIndex}
+              toggleTodoDone={(todoIndex: number) => {
+                const todosCopy = structuredClone(todos)
+                todosCopy[todoIndex].done = !todosCopy[todoIndex].done
+                setTodos(todosCopy)
+              }}
               addTodo={addTodo}
               deleteTodo={deleteTodo}
             />
