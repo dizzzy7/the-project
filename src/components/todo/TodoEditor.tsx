@@ -5,12 +5,15 @@ import {
   MutableRefObject,
   RefObject,
   forwardRef,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
 import { Todo } from './TodoList';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
+
+import { v4 as uuidv4 } from 'uuid';
 
 export type TodoEditorProps = {
   richTextClasses: string;
@@ -38,15 +41,10 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
     content: (props.todo && props.todo.content) || '',
   });
 
-  /**
-   * if there is the need, load in some content initially
-   *
-   * This will help with
-   *  */
-
   const [titleInputValue, setTitleInputValue] = useState<string>(
     (props.todo && props.todo.title) || ''
   );
+
 
   useEffect(() => {
     if (props.todo && props.todo.content) {
@@ -56,7 +54,7 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
       editor?.commands.setContent('');
       setTitleInputValue('');
     }
-  }, [props.todo]);
+  }, [editor, props.todo]);
 
   return (
     <div
@@ -72,10 +70,9 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
             return (props.editorRef.current.title = el);
           }
         }}
-        className='border-b w-full bg-neutral-50 p-2 text-2xl font-bold'
+        className='w-full p-2 text-2xl font-bold border-b bg-neutral-50'
         value={titleInputValue}
         onChange={(e) => {
-          console.log(props.todo);
           setTitleInputValue(e.target.value);
         }}
         placeholder='. . .'
@@ -83,19 +80,18 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
       <EditorContent
         className={clx(
           props.richTextClasses,
-          'bg-neutral-50 w-full p-2 [&>div]:min-h-[500px]'
+          'bg-neutral-50 w-full p-2 [&>div]:min-h-[100px] [&>div]:md:min-h-[500px]'
         )}
         editor={editor}
         placeholder='. . . . .'
       />
       <button
-        className='rounded-md bg-orange-200 py-2 font-medium mt-4 mb-2 px-6'
+        className='px-6 py-2 mt-4 mb-2 font-medium bg-orange-200 rounded-md'
         onClick={() => {
-          // TODO: get title of Todo, and the Content of the Todo
           if (editor) {
             let todoTitle = titleInputValue;
+            const editorContent = editor.getHTML();
             if (titleInputValue === '') {
-              const editorContent = editor.getHTML();
               const match = editorContent.match(/<[^>]*>([^<]*)<\/[^>]*>/);
               const firstTagContent = match ? match[1] : '';
               todoTitle = firstTagContent;
@@ -105,7 +101,15 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
               props.onSubmit(
                 todoTitle,
                 editor.getHTML(),
-                props.todo.id || null
+                props.todo.id
+              );
+              editor.commands.setContent('');
+              setTitleInputValue('');
+            } else if (titleInputValue && editorContent) {
+              props.onSubmit(
+                todoTitle,
+                editor.getHTML(),
+                uuidv4()
               );
               editor.commands.setContent('');
               setTitleInputValue('');
@@ -118,5 +122,7 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
     </div>
   );
 });
+
+TodoEditor.displayName = 'TodoEditor'
 
 export default TodoEditor;

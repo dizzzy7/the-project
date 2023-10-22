@@ -63,7 +63,7 @@ export default function Todos() {
     },
   ]);
 
-  const [currentTodoIndex, setCurrentTodoIndex] = useState<number | null>(null);
+  const [activeTodoIndex, setActiveTodoIndex] = useState<number | null>(null);
 
   const editorRef = useRef<{
     title: HTMLInputElement | null;
@@ -81,25 +81,20 @@ export default function Todos() {
       done: false,
     };
 
-    setTodos([newTodo, ...todos]);
+    setTodos([newTodo, ...structuredClone(todos)]);
 
-    setCurrentTodoIndex(0);
-    console.log(todos[0]);
+    setActiveTodoIndex(0);
   };
 
   const deleteTodo = (index: number) => {
-    const result = [...todos];
+    const result = structuredClone(todos);
 
     result.splice(index, 1);
 
     setTodos(result);
 
-    setCurrentTodoIndex(null);
+    setActiveTodoIndex(null);
   };
-
-  useEffect(() => {
-    console.log(todos[0]);
-  }, []);
 
   return (
     <>
@@ -117,23 +112,25 @@ export default function Todos() {
               ↞ <span className='text-2xl'>Zurück</span>
             </Link>
           </div>
-          <h1 className='text-5xl text-center mt-10 mb-10'>Todos</h1>
-          <div className='flex w-full'>
+          <h1 className='mt-10 mb-10 text-5xl text-center'>Todos</h1>
+          <div className='flex flex-col items-center w-full md:flex-row md:items-start'>
             <TodoList
               richTextClasses={richTextClasses}
               todos={todos}
               onChange={setTodos}
-              className='w-96 max-w-full'
+              className='order-1 max-w-full w-96 md:order-none'
               loadTodo={(todoIndex: number) => {
-                setCurrentTodoIndex(todoIndex);
+                setActiveTodoIndex(todoIndex);
               }}
+              activeTodoIndex={activeTodoIndex}
+              setActiveTodoIndex={setActiveTodoIndex}
               addTodo={addTodo}
               deleteTodo={deleteTodo}
             />
             <TodoEditor
               className='grow'
               richTextClasses={richTextClasses}
-              todo={currentTodoIndex ? todos[currentTodoIndex] : null}
+              todo={activeTodoIndex !== null ? todos[activeTodoIndex] : null}
               editorRef={editorRef}
               onSubmit={(newTodoTitle, newTodoContent, todoId) => {
                 if (todoId === null) {

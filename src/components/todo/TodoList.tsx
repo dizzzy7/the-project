@@ -35,28 +35,29 @@ export type TodoListProps = {
   loadTodo: (todoId: number) => void;
   addTodo: () => void;
   deleteTodo: (index: number) => void;
+  activeTodoIndex: number | null;
+  setActiveTodoIndex: (index: number | null) => void;
 };
 
 export default function TodoList(props: TodoListProps) {
-  const [activeTodoIndex, setActiveTodoIndex] = useState<number | null>(null);
   return (
     <ul className={clx(props.className, 'px-2 py-1 transition-all space-y-2')}>
-      <li className='bg-slate-100 rounded-md border-slate-600 border-2'>
+      <li className='border-2 rounded-md bg-slate-100 border-slate-600'>
         <button
           onClick={(e) => props.addTodo()}
-          className='flex justify-center items-center w-full py-2'
+          className='flex items-center justify-center w-full py-2'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
-            stroke-width='1.5'
+            strokeWidth='1.5'
             stroke='currentColor'
-            className='w-6 h-6 inline-block'
+            className='inline-block w-6 h-6'
           >
             <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
+              strokeLinecap='round'
+              strokeLinejoin='round'
               d='M12 4.5v15m7.5-7.5h-15'
             />
           </svg>
@@ -75,11 +76,11 @@ export default function TodoList(props: TodoListProps) {
             key={todoIndex}
           >
             <Disclosure.Button
-              className='w-full text-left pl-3'
+              className='w-full pl-3 text-left'
               onClick={() => {
-                todoIndex !== activeTodoIndex
-                  ? setActiveTodoIndex(todoIndex)
-                  : setActiveTodoIndex(null);
+                todoIndex !== props.activeTodoIndex
+                  ? props.setActiveTodoIndex(todoIndex)
+                  : props.setActiveTodoIndex(null);
               }}
             >
               {
@@ -138,7 +139,7 @@ export default function TodoList(props: TodoListProps) {
             <AnimateHeight
               duration={400}
               // only show maximum of 200 if the height of the content is greater, else do auto
-              height={activeTodoIndex === todoIndex ? 'auto' : 0}
+              height={props.activeTodoIndex === todoIndex ? 'auto' : 0}
             >
               <div
                 className={clx(
