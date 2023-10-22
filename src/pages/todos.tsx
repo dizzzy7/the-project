@@ -11,9 +11,9 @@ import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 
 const richTextClasses = clx(
-  'prose prose-ul:pl-2 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-3xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
+  'prose prose-ul:pl-0 prose-ul:ml-6 prose-li:pl-0 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-3xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
   'prose-h2:mt-0 prose-h3:mb-2 prose-h4:mb-2 prose-li:my-0',
-  'prose-p:my-1 prose-hr:my-4 prose-ul:my-2'
+  'prose-p:my-1 prose-hr:my-4 prose-ul:my-0'
 );
 
 export default function Todos() {
