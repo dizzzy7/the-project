@@ -157,7 +157,7 @@ export default function TodoList(props: TodoListProps) {
               <div
                 className={clx(
                   props.richTextClasses,
-                  'pt-2 mt-2 prose w-full mr-0 border-t pr-3 pl-6 pb-2'
+                  'pt-2 mt-2 prose w-full mr-0 border-t px-3 pb-2'
                 )}
                 dangerouslySetInnerHTML={{ __html: sanitizedTodoContent || '' }}
               ></div>
