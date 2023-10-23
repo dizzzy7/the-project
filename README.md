@@ -23,7 +23,7 @@ will run a production deployment whenever something is pushed to main.
 - React
 - Next.js
 - multiple small utility libraries
- - uuid, DOMPurify, Animate-Height, clx
+    - uuid, DOMPurify, Animate-Height, clx
  
 #### Todo App
 - TipTap (RichText Editor Library)
