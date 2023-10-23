@@ -15,7 +15,7 @@ https://the-project-ashen.vercel.app/
 ---
 
 Pushing to main will trigger a so called "production deployment",
-updating this project that is linked above.
+resulting in an update of this project that is linked above.
 
 ### Interesting Libraries used:
 #### TicTacToe
