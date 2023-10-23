@@ -4,11 +4,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This is a web app that contains several small web apps to showcase different tools, libraries and my ability to code.
 
-I deployed my project on Vercel. 
+---
+
+I deployed this project on Vercel. 
 
 Here is the link:
 
 https://the-project-ashen.vercel.app/
+
+---
 
 Pushing to main will trigger a so called "production deployment",
 updating this project that is linked above.
