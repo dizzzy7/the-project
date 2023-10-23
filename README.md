@@ -14,15 +14,18 @@ https://the-project-ashen.vercel.app/
 
 ---
 
-Pushing to main will trigger a so called "production deployment",
-resulting in an update of this project that is linked above.
+The project gets automatically updated. Everytime something is pushed to main,
+the site linked above will contain the updated web app. The setup on Vercel
+will run a production deployment whenever something is pushed to main.
 
 ### Interesting Libraries used:
-#### TicTacToe
-- Pure React
+- Tailwind
+- React
+- Next.js
+- multiple small utility libraries
+ - uuid, DOMPurify, Animate-Height, clx
  
 #### Todo App
-- React
 - TipTap (RichText Editor Library)
 - HeadlessUI
 
