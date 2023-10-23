@@ -47,7 +47,7 @@ export default function TicTacToeGame(
 
       return null;
     },
-    [squares]
+    []
   );
 
   const resetBoard = useCallback((setState: (squares: number[][]) => void) => {
@@ -79,7 +79,8 @@ export default function TicTacToeGame(
 
     const winner = calculateWinner(nextSquares);
 
-    if (winner && xIsNext === false) {
+    if (winner === "Tie") {
+    } else if (winner && xIsNext === false) {
       const newScore = [...score];
       newScore[0]++;
       setScore(newScore);
@@ -155,10 +156,10 @@ export default function TicTacToeGame(
           />
         </div>
       </div>
-      <div className='mx-auto text-center mt-5 space-x-4'>
+      <div className='mx-auto mt-5 space-x-4 text-center'>
         <span className='text-2xl align-middle'>
           {score[0]}
-          <span className='font-bold text-3 opacity-50 rounded-md border-2 aspect-square w-9 inline-grid items-center pb-1 ml-3'>
+          <span className='inline-grid items-center pb-1 ml-3 font-bold border-2 rounded-md opacity-50 text-3 aspect-square w-9'>
             O
           </span>
         </span>
@@ -174,7 +175,7 @@ export default function TicTacToeGame(
           RESTART
         </button>
         <span className='text-2xl align-middle'>
-          <span className='font-bold text-3 opacity-50 border-2 rounded-md aspect-square w-9 inline-grid items-center pb-1 mr-3'>
+          <span className='inline-grid items-center pb-1 mr-3 font-bold border-2 rounded-md opacity-50 text-3 aspect-square w-9'>
             X
           </span>
           {score[1]}
