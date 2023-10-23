@@ -7,6 +7,7 @@ This is a web app that contains several small web apps to showcase different too
 I deployed my project on Vercel. 
 
 Here is the link:
+
 https://the-project-ashen.vercel.app/
 
 Pushing to main will trigger a so called "production deployment",
