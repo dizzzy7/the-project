@@ -199,16 +199,16 @@ export default function Todos() {
                 // save todo if it is new, else just overwrite
                 if (todoIndex === -1) {
                   const newTodos = [
-                    ...todos,
                     {
                       id: uuidv4(),
                       title: newTodoTitle,
                       content: newTodoContent,
                       done: false,
                     },
+                    ...todos
                   ];
                   setTodos(newTodos);
-                  setActiveTodoIndex(null)
+                  setActiveTodoIndex(0)
                 } else {
                   const newTodos = [...todos];
 

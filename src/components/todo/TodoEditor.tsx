@@ -45,7 +45,6 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
     (props.todo && props.todo.title) || ''
   );
 
-
   useEffect(() => {
     if (props.todo && props.todo.content) {
       editor?.commands.setContent(props.todo.content);
@@ -64,18 +63,18 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
       )}
     >
       <input
-        type='text'
+        type="text"
         ref={(el) => {
           if (props.editorRef) {
             return (props.editorRef.current.title = el);
           }
         }}
-        className='w-full p-2 text-2xl font-bold border-b bg-neutral-50'
+        className="w-full p-2 text-2xl font-bold border-b bg-neutral-50"
         value={titleInputValue}
         onChange={(e) => {
           setTitleInputValue(e.target.value);
         }}
-        placeholder='. . .'
+        placeholder=". . ."
       />
       <EditorContent
         className={clx(
@@ -83,10 +82,10 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
           'bg-neutral-50 w-full p-2 [&>div]:min-h-[100px] [&>div]:md:min-h-[500px]'
         )}
         editor={editor}
-        placeholder='. . . . .'
+        placeholder=". . . . ."
       />
       <button
-        className='px-6 py-2 mt-4 mb-2 font-medium bg-orange-200 rounded-md'
+        className="px-6 py-2 mt-4 mb-2 font-medium bg-orange-200 rounded-md"
         onClick={() => {
           if (editor) {
             let todoTitle = titleInputValue;
@@ -98,19 +97,11 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
             }
 
             if (props.todo) {
-              props.onSubmit(
-                todoTitle,
-                editor.getHTML(),
-                props.todo.id
-              );
-              editor.commands.setContent('');
-              setTitleInputValue('');
-            } else if (titleInputValue && editorContent) {
-              props.onSubmit(
-                todoTitle,
-                editor.getHTML(),
-                uuidv4()
-              );
+              // update todo
+              props.onSubmit(todoTitle, editor.getHTML(), props.todo.id);
+            } else {
+              // create new todo
+              props.onSubmit(todoTitle, editor.getHTML(), null);
               editor.commands.setContent('');
               setTitleInputValue('');
             }
@@ -123,6 +114,6 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
   );
 });
 
-TodoEditor.displayName = 'TodoEditor'
+TodoEditor.displayName = 'TodoEditor';
 
 export default TodoEditor;
