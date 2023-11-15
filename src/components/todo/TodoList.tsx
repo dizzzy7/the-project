@@ -96,10 +96,10 @@ export default function TodoList(props: TodoListProps) {
                       className='w-5 h-5 mr-2'
                       type="checkbox"
                       id="checkbox"
-                      checked={todo.done}
+                      defaultChecked={todo.done}
                       onClick={(e) => {
-                        props.toggleTodoDone(todoIndex);
                         e.stopPropagation()
+                        props.toggleTodoDone(todoIndex);
                       }}
                     />
                     <div
