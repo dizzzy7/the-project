@@ -1,8 +1,4 @@
 import { clx } from '@/utils/clx';
-import { Disclosure } from '@headlessui/react';
-import { ReactNode, useRef, useState } from 'react';
-import AnimateHeight from 'react-animate-height';
-import DOMPurify from 'isomorphic-dompurify';
 
 import {
   DndContext,
@@ -68,21 +64,23 @@ export default function TodoList(props: TodoListProps) {
           <span className="pl-3 text-xl">Add Todo</span>
         </button>
       </li>
-      {props.todos.map((todo, todoIndex) => {
-        let sanitizedTodoContent;
-        if (todo.content) {
-          sanitizedTodoContent = DOMPurify.sanitize(todo.content.toString());
+      {props.todos.sort((a, b) => {
+        if (a.done && !b.done) {
+          return 1;
+        } else if (!a.done && b.done) {
+          return -1;
+        } else {
+          return 0;
         }
+      }).map((todo, todoIndex) => {
         return (
-          <Disclosure
-            as="li"
+          <li
             className={'bg-slate-100 rounded-md border-slate-600 border-2'}
-            key={todoIndex}
           >
-            <Disclosure.Button
+            <button
               className="w-full pl-3 text-left"
               onClick={(e) => {
-                props.previewTodo(todoIndex);
+                props.loadTodo(todoIndex);
                 e.stopPropagation();
               }}
             >
@@ -97,8 +95,8 @@ export default function TodoList(props: TodoListProps) {
                       type="checkbox"
                       id="checkbox"
                       checked={todo.done}
+                      onChange={() => {props.toggleTodoDone(todoIndex)}}
                       onClick={(e) => {
-                        props.toggleTodoDone(todoIndex);
                         e.stopPropagation()
                       }}
                     />
@@ -125,44 +123,17 @@ export default function TodoList(props: TodoListProps) {
                       </svg>
                     </div>
                     <div
-                      className="py-2 pr-3"
+                      className="py-2"
                       onClick={(e) => {
-                        props.loadTodo(todoIndex);
                         e.stopPropagation();
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                      </svg>
                     </div>
                   </div>
                 </div>
               }
-            </Disclosure.Button>
-            <AnimateHeight
-              duration={400}
-              height={props.previewTodoIndex === todoIndex ? 'auto' : 0}
-            >
-              <div
-                className={clx(
-                  props.richTextClasses,
-                  'pt-2 mt-2 prose w-full mr-0 border-t px-3 pb-2'
-                )}
-                dangerouslySetInnerHTML={{ __html: sanitizedTodoContent || '' }}
-              ></div>
-            </AnimateHeight>
-          </Disclosure>
+            </button>
+          </li>
         );
       })}
     </ul>
