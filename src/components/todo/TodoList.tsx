@@ -76,6 +76,7 @@ export default function TodoList(props: TodoListProps) {
         return (
           <li
             className={'bg-slate-100 rounded-md border-slate-600 border-2'}
+            key={todo.id}
           >
             <button
               className="w-full pl-3 text-left"
@@ -95,7 +96,7 @@ export default function TodoList(props: TodoListProps) {
                       type="checkbox"
                       id="checkbox"
                       checked={todo.done}
-                      onChange={() => {props.toggleTodoDone(todoIndex)}}
+                      onChange={() => { props.toggleTodoDone(todoIndex) }}
                       onClick={(e) => {
                         e.stopPropagation()
                       }}
