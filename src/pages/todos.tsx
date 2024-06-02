@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 
 const richTextClasses = clx(
-  'prose prose-ul:pl-0 prose-ul:ml-6 prose-li:pl-0 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-3xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
+  'prose prose-ul:pl-0 prose-ul:ml-6 prose-li:pl-0 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-2xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
   'prose-h2:mt-0 prose-h3:mb-2 prose-h4:mb-2 prose-li:my-0',
   'prose-p:my-1 prose-hr:my-4 prose-ul:my-0 prose-label:mt-0'
 );
@@ -157,7 +157,7 @@ export default function Todos() {
             </Link>
           </div>
           <h1 className="mt-10 mb-10 text-5xl text-center">Todos</h1>
-          <div className="flex flex-col items-center w-full md:flex-row md:items-start">
+          <div className="flex flex-col items-center w-full md:flex-row md:items-start text-md">
             <TodoList
               richTextClasses={richTextClasses}
               todos={todos}
