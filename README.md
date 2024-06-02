@@ -25,14 +25,14 @@ will run a production deployment whenever something is pushed to main.
 - multiple small utility libraries
   - uuid, DOMPurify, Animate-Height, clx
  
-#### Todo App
+#### Note App
 - TipTap (RichText Editor Library)
 - HeadlessUI
 
 ### Next Steps
 I want to use a Database to persist the state of my apps.
 
-Todo App:
+Note App:
 - add drag and drop functionality using dnd-kit
 
 TicTacToe:

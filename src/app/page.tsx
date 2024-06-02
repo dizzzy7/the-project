@@ -10,8 +10,8 @@ export default function Home() {
           </Link>
         </li>
         <li className='before:content-["↠"] before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-3xl before:top-1/2 before:scale-y-125'>
-          <Link className='text-5xl' href={'/todos'}>
-            Todos
+          <Link className='text-5xl' href={'/notes'}>
+            Notes
           </Link>
         </li>
       </ul>
