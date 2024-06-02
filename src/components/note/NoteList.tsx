@@ -40,8 +40,8 @@ export type NoteListProps = {
 
 export default function NoteList(props: NoteListProps) {
   return (
-    <ul className={clx(props.className, 'px-2 py-1 transition-all space-y-2')}>
-      <li className="border-2 rounded-md bg-slate-100 border-slate-600">
+    <ul className={clx(props.className, 'px-2 md:pr-0 py-1 transition-all space-y-2')}>
+      <li className="bg-slate-50 rounded-md border rounded-md hover:bg-blue-50">
         <button
           onClick={(e) => props.addNote()}
           className="flex items-center justify-center w-full py-2"
@@ -74,7 +74,7 @@ export default function NoteList(props: NoteListProps) {
       }).map((note, noteIndex) => {
         return (
           <li
-            className={'bg-slate-100 rounded-md border-slate-600 border-2 group'}
+            className={'bg-slate-50 rounded-md border-slate-200 border group hover:bg-blue-50'}
             key={note.id}
           >
             <button
@@ -91,7 +91,7 @@ export default function NoteList(props: NoteListProps) {
                   </div>
                   <div className="flex items-center">
                     <div
-                      className="py-2 pr-2 bg-slate-100 opacity-0 group-hover:opacity-30 hover:!opacity-100 rounded-md transition-opacity"
+                      className="py-2 pr-2 bg-slate-50 group-hover:bg-blue-50 opacity-0 group-hover:opacity-30 hover:!opacity-100 rounded-md transition-opacity"
                       onClick={(e) => {
                         props.deleteNote(noteIndex);
                         e.stopPropagation();
