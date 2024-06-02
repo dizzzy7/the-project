@@ -16,35 +16,34 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-export type Todo = {
+export type Note = {
   id: string;
   title: string;
   content: string;
   done: boolean;
 };
 
-export type TodoListProps = {
-  todos: Todo[];
-  onChange: (todos: Todo[]) => void;
+export type NoteListProps = {
+  notes: Note[];
+  onChange: (notes: Note[]) => void;
   richTextClasses: string;
   className?: string;
-  loadTodo: (todoId: number) => void;
-  addTodo: () => void;
-  deleteTodo: (index: number) => void;
-  activeTodoIndex: number | null;
-  previewTodoIndex: number | null;
-  setActiveTodoIndex: (index: number | null) => void;
-  setPreviewTodoIndex: (index: number | null) => void;
-  previewTodo: (index: number | null) => void;
-  toggleTodoDone: (index: number) => void;
+  loadNote: (noteId: number) => void;
+  addNote: () => void;
+  deleteNote: (index: number) => void;
+  activeNoteIndex: number | null;
+  previewNoteIndex: number | null;
+  setActiveNoteIndex: (index: number | null) => void;
+  setPreviewNoteIndex: (index: number | null) => void;
+  previewNote: (index: number | null) => void;
 };
 
-export default function TodoList(props: TodoListProps) {
+export default function NoteList(props: NoteListProps) {
   return (
     <ul className={clx(props.className, 'px-2 py-1 transition-all space-y-2')}>
       <li className="border-2 rounded-md bg-slate-100 border-slate-600">
         <button
-          onClick={(e) => props.addTodo()}
+          onClick={(e) => props.addNote()}
           className="flex items-center justify-center w-full py-2"
         >
           <svg
@@ -61,10 +60,10 @@ export default function TodoList(props: TodoListProps) {
               d="M12 4.5v15m7.5-7.5h-15"
             />
           </svg>
-          <span className="pl-3 text-xl">Add Todo</span>
+          <span className="pl-3 text-xl">Add Note</span>
         </button>
       </li>
-      {props.todos.sort((a, b) => {
+      {props.notes.sort((a, b) => {
         if (a.done && !b.done) {
           return 1;
         } else if (!a.done && b.done) {
@@ -72,39 +71,29 @@ export default function TodoList(props: TodoListProps) {
         } else {
           return 0;
         }
-      }).map((todo, todoIndex) => {
+      }).map((note, noteIndex) => {
         return (
           <li
-            className={'bg-slate-100 rounded-md border-slate-600 border-2'}
-            key={todo.id}
+            className={'bg-slate-100 rounded-md border-slate-600 border-2 group'}
+            key={note.id}
           >
             <button
               className="w-full pl-3 text-left"
               onClick={(e) => {
-                props.loadTodo(todoIndex);
+                props.loadNote(noteIndex);
                 e.stopPropagation();
               }}
             >
               {
                 <div className="flex justify-between">
-                  <div className={clx(todo.done && 'line-through opacity-50', 'py-2')}>
-                    {todo.title}
+                  <div className={clx(note.done && 'line-through opacity-50', 'py-2')}>
+                    {note.title}
                   </div>
                   <div className="flex items-center">
-                    <input
-                      className='w-5 h-5 mr-2'
-                      type="checkbox"
-                      id="checkbox"
-                      checked={todo.done}
-                      onChange={() => { props.toggleTodoDone(todoIndex) }}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                      }}
-                    />
                     <div
-                      className="py-2 pr-2"
+                      className="py-2 pr-2 bg-slate-100 opacity-0 group-hover:opacity-30 hover:!opacity-100 rounded-md transition-opacity"
                       onClick={(e) => {
-                        props.deleteTodo(todoIndex);
+                        props.deleteNote(noteIndex);
                         e.stopPropagation();
                       }}
                     >

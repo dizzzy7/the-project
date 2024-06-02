@@ -2,8 +2,8 @@ import Head from 'next/head';
 
 import '@/app/globals.css';
 
-import TodoList, { Todo } from '@/components/todo/TodoList';
-import TodoEditor from '@/components/todo/TodoEditor';
+import NoteList, { Note } from '@/components/note/NoteList';
+import NoteEditor from '@/components/note/NoteEditor';
 
 import { useEffect, useRef, useState } from 'react';
 import { clx } from '@/utils/clx';
@@ -16,8 +16,8 @@ const richTextClasses = clx(
   'prose-p:my-1 prose-hr:my-4 prose-ul:my-0 prose-label:mt-0'
 );
 
-export default function Todos() {
-  const [todos, setTodos] = useState<Todo[]>([
+export default function Notes() {
+  const [notes, setNotes] = useState<Note[]>([
     {
       id: uuidv4(),
       title: 'Buy some grocieries',
@@ -106,8 +106,8 @@ export default function Todos() {
     },
   ]);
 
-  const [activeTodoIndex, setActiveTodoIndex] = useState<number | null>(null);
-  const [previewTodoIndex, setPreviewTodoIndex] = useState<number | null>(null);
+  const [activeNoteIndex, setActiveNoteIndex] = useState<number | null>(null);
+  const [previewNoteIndex, setPreviewNoteIndex] = useState<number | null>(null);
 
   const editorRef = useRef<{
     title: HTMLInputElement | null;
@@ -117,36 +117,36 @@ export default function Todos() {
     content: null,
   });
 
-  const addTodo = () => {
-    const newTodo: Todo = {
+  const addNote = () => {
+    const newNote: Note = {
       id: uuidv4(),
       content: '',
       title: '',
       done: false,
     };
 
-    setTodos([newTodo, ...structuredClone(todos)]);
+    setNotes([newNote, ...structuredClone(notes)]);
 
-    setActiveTodoIndex(0);
+    setActiveNoteIndex(0);
   };
 
-  const deleteTodo = (index: number) => {
-    const result = structuredClone(todos);
+  const deleteNote = (index: number) => {
+    const result = structuredClone(notes);
 
     result.splice(index, 1);
 
-    setTodos(result);
+    setNotes(result);
 
-    setActiveTodoIndex(null);
+    setActiveNoteIndex(null);
   };
 
   return (
     <>
       <Head>
-        <title>Todo Application</title>
+        <title>Note Application</title>
         <meta
           name="description"
-          content="This is a Todo Application written in Next.js"
+          content="This is a Note Application written in Next.js"
         />
       </Head>
       <div>
@@ -156,67 +156,67 @@ export default function Todos() {
               ↞ <span className="text-2xl">Zurück</span>
             </Link>
           </div>
-          <h1 className="mt-10 mb-10 text-5xl text-center">Todos</h1>
+          <h1 className="mt-10 mb-10 text-5xl text-center">Notes</h1>
           <div className="flex flex-col items-center w-full md:flex-row md:items-start text-md">
-            <TodoList
+            <NoteList
               richTextClasses={richTextClasses}
-              todos={todos}
-              onChange={setTodos}
+              notes={notes}
+              onChange={setNotes}
               className="order-1 max-w-full w-96 md:order-none"
-              loadTodo={(todoIndex: number) => {
-                setActiveTodoIndex(todoIndex);
+              loadNote={(noteIndex: number) => {
+                setActiveNoteIndex(noteIndex);
               }}
-              previewTodo={(todoIndex) => {
-                if (todoIndex === previewTodoIndex) {
-                  setPreviewTodoIndex(null);
+              previewNote={(noteIndex) => {
+                if (noteIndex === previewNoteIndex) {
+                  setPreviewNoteIndex(null);
                 } else {
-                  setPreviewTodoIndex(todoIndex);
+                  setPreviewNoteIndex(noteIndex);
                 }
               }}
-              activeTodoIndex={activeTodoIndex}
-              previewTodoIndex={previewTodoIndex}
-              setActiveTodoIndex={setActiveTodoIndex}
-              setPreviewTodoIndex={setPreviewTodoIndex}
-              toggleTodoDone={(todoIndex: number) => {
-                const todosCopy = structuredClone(todos);
-                todosCopy[todoIndex].done = !todosCopy[todoIndex].done;
-                setTodos(todosCopy);
+              activeNoteIndex={activeNoteIndex}
+              previewNoteIndex={previewNoteIndex}
+              setActiveNoteIndex={setActiveNoteIndex}
+              setPreviewNoteIndex={setPreviewNoteIndex}
+              toggleNoteDone={(noteIndex: number) => {
+                const notesCopy = structuredClone(notes);
+                notesCopy[noteIndex].done = !notesCopy[noteIndex].done;
+                setNotes(notesCopy);
               }}
-              addTodo={addTodo}
-              deleteTodo={deleteTodo}
+              addNote={addNote}
+              deleteNote={deleteNote}
             />
-            <TodoEditor
+            <NoteEditor
               className="grow"
               richTextClasses={richTextClasses}
-              todo={activeTodoIndex !== null ? todos[activeTodoIndex] : null}
+              note={activeNoteIndex !== null ? notes[activeNoteIndex] : null}
               editorRef={editorRef}
-              onSubmit={(newTodoTitle, newTodoContent, todoId, persist) => {
-                if (todoId === null) {
-                  todoId = uuidv4();
+              onSubmit={(newNoteTitle, newNoteContent, noteId, persist) => {
+                if (noteId === null) {
+                  noteId = uuidv4();
                 }
-                const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+                const noteIndex = notes.findIndex((note) => note.id === noteId);
 
-                // save todo if it is new, else just overwrite
-                if (todoIndex === -1) {
-                  const newTodos = [
+                // save note if it is new, else just overwrite
+                if (noteIndex === -1) {
+                  const newNotes = [
                     {
                       id: uuidv4(),
-                      title: newTodoTitle,
-                      content: newTodoContent,
+                      title: newNoteTitle,
+                      content: newNoteContent,
                       done: false,
                     },
-                    ...todos
+                    ...notes
                   ];
-                  setTodos(newTodos);
-                  setActiveTodoIndex(0)
+                  setNotes(newNotes);
+                  setActiveNoteIndex(0)
 
 
                 } else {
-                  const newTodos = [...todos];
+                  const newNotes = [...notes];
 
-                  newTodos[todoIndex].title = newTodoTitle;
-                  newTodos[todoIndex].content = newTodoContent;
-                  setTodos(newTodos);
+                  newNotes[noteIndex].title = newNoteTitle;
+                  newNotes[noteIndex].content = newNoteContent;
+                  setNotes(newNotes);
 
                 }
 
