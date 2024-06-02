@@ -190,7 +190,7 @@ export default function Todos() {
               richTextClasses={richTextClasses}
               todo={activeTodoIndex !== null ? todos[activeTodoIndex] : null}
               editorRef={editorRef}
-              onSubmit={(newTodoTitle, newTodoContent, todoId) => {
+              onSubmit={(newTodoTitle, newTodoContent, todoId, persist) => {
                 if (todoId === null) {
                   todoId = uuidv4();
                 }
@@ -209,12 +209,19 @@ export default function Todos() {
                   ];
                   setTodos(newTodos);
                   setActiveTodoIndex(0)
+
+
                 } else {
                   const newTodos = [...todos];
 
                   newTodos[todoIndex].title = newTodoTitle;
                   newTodos[todoIndex].content = newTodoContent;
                   setTodos(newTodos);
+
+                }
+
+                if (persist) {
+                  // persist in database here
                 }
               }}
             />

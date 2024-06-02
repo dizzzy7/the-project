@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export type TodoEditorProps = {
   richTextClasses: string;
-  onSubmit: (title: string, content: string, id: string | null) => void;
+  onSubmit: (title: string, content: string, id: string | null, persist: boolean) => void;
   className?: string;
   todo: Todo | null;
   editorRef: MutableRefObject<{
@@ -72,7 +72,10 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
         className="w-full p-2 text-2xl font-bold border-b bg-neutral-50"
         value={titleInputValue}
         onChange={(e) => {
-          setTitleInputValue(e.target.value);
+          if (editor) {
+            setTitleInputValue(e.target.value);
+            props.onSubmit(e.target.value, editor.getHTML(), props.todo && props.todo.id || null, false)
+          }
         }}
         placeholder=". . ."
       />
@@ -98,10 +101,10 @@ const TodoEditor = forwardRef((props: TodoEditorProps, ref) => {
 
             if (props.todo) {
               // update todo
-              props.onSubmit(todoTitle, editor.getHTML(), props.todo.id);
+              props.onSubmit(todoTitle, editor.getHTML(), props.todo.id, true);
             } else {
               // create new todo
-              props.onSubmit(todoTitle, editor.getHTML(), null);
+              props.onSubmit(todoTitle, editor.getHTML(), null, true);
               editor.commands.setContent('');
               setTitleInputValue('');
             }
