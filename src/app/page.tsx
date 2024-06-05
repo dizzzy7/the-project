@@ -2,19 +2,54 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
-      <ul className='space-y-5 flex flex-col'>
-        <li className='before:content-["↠"] before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-3xl before:top-1/2 before:scale-y-125'>
-          <Link className='text-5xl' href={'/tictactoe'}>
-            Tic-Tac-Toe
-          </Link>
-        </li>
-        <li className='before:content-["↠"] before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-3xl before:top-1/2 before:scale-y-125'>
-          <Link className='text-5xl' href={'/notes'}>
-            Notes
-          </Link>
-        </li>
-      </ul>
+    <main className='min-h-screen bg-gray-800 text-slate-100'>
+      <div className='container grid grid-cols-[20rem_auto] h-full min-h-screen'>
+        <div className='border-l border-r border-slate-500 px-8 '>
+          <nav className='flex flex-col h-full min-h-screen align-middle fixed'>
+            <h1 className='fixed top-0 pt-16 px-2 text-4xl font-bold tracking-wide'>Sait<span className='text-red-300'>'</span>s<br /><span className='font-normal tracking-normal'>Portfolio</span></h1>
+            <ul className='space-y-5 flex flex-col pt-16 p-12 justify-center h-full'>
+              <li className='before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
+                <Link className='text-3xl' href={'/about-me'}>
+                  About me
+                </Link>
+              </li>
+              <li className='before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
+                <Link className='text-3xl' href={''}>
+                  Side Projects
+                </Link>
+              </li>
+              <li className='ml-6 !mt-3 before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
+                <Link className='text-2xl' href={'/notes'}>
+                  Notes
+                </Link>
+              </li>
+              <li className='ml-6 !mt-2 before:content-["↠"] before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:text-gray-500 before:top-1/2 before:scale-y-125'>
+                <Link className='text-2xl' href={'/tic-tac-toe'}>Tic-Tac-Toe</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className='px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch'>
+          <div className='flex min-h-screen'>
+            <div className='my-auto'>
+              <h1>About me.</h1>
+              <p><span className='text-red-200 text-xl mr-2'>Hello there!</span> I am Sait. A developer based in Berlin, Germany.</p>
+              <p>Over the duration of my <span className='text-red-300'>3 years</span> of studies <span className='text-red-300'>I have been working as a web developer</span> <span className='text-gray-400'>(20h/week)</span>.</p>
+              <p>I switched to working full time as a frontend developer in <span className='text-cyan-300'>07.2022</span> and collected <u className='text-cyan-300'>17 months of frontend development experience</u> with a great team of seasoned developers and engineers.</p>
+              <p>My main frontend framework I use is <span className='text-cyan-300'>React</span>.</p>
+            </div>
+          </div>
+          <div className='flex min-h-screen'>
+            <div className='my-auto'>
+              <h1>About me.</h1>
+              <p><strong className='text-red-200'>Hello there!</strong> I am Sait. A developer based in Berlin, Germany.</p>
+              <p>Over the duration of my <span className='text-red-300'>3 years</span> of studies <span className='text-red-300'>I have been working as a web developer</span> (working student).</p>
+              <p>I switched to working full time as a frontend developer in <span className='text-cyan-300'>07.2022</span> and collected <u className='text-cyan-300'>17 months of frontend development experience</u> with a great team of seasoned developers and engineers.</p>
+              <p>My main frontend framework I use is <span className='text-cyan-300'>React</span>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
