@@ -41,5 +41,6 @@ TicTacToe:
 ---
 
 Leaving some notes here for me as a little roadmap/todo list:
-[ ] - add react-count to increase the displayed stats
-[ ] - use react-visible to time the react-count effect when it is scrolled in
+
+- [ ] - add react-count to increase the displayed stats
+- [ ] - use react-visible to time the react-count effect when it is scrolled in
