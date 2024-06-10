@@ -59,7 +59,7 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
     <div
       className={clx(
         props.className,
-        'p-2 border-2 [&_*]:outline-none bg-neutral-100 h-full'
+        'p-2 [&_*]:outline-none bg-gray-700 h-full text-white'
       )}
     >
       <input
@@ -69,7 +69,7 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
             return (props.editorRef.current.title = el);
           }
         }}
-        className="w-full p-2 text-2xl font-bold border-b bg-neutral-50"
+        className="w-full p-2 text-2xl font-bold border-b border-b-gray-400 bg-gray-600"
         value={titleInputValue}
         onChange={(e) => {
           if (editor) {
@@ -82,13 +82,13 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
       <EditorContent
         className={clx(
           props.richTextClasses,
-          'bg-neutral-50 w-full p-2 [&>div]:min-h-[100px] [&>div]:xl:min-h-[300px] h-[calc(100%-125px)]'
+          'bg-gray-600 w-full p-2 [&>div]:min-h-[100px] [&>div]:xl:min-h-[300px] h-[calc(100%-125px)]'
         )}
         editor={editor}
         placeholder=". . . . ."
       />
       <button
-        className="px-6 py-2 mt-4 mb-2 font-medium bg-orange-200 rounded-md"
+        className="px-6 py-2 mt-4 mb-2 bg-orange-200 rounded-md text-black font-bold"
         onClick={() => {
           if (editor) {
             let noteTitle = titleInputValue;

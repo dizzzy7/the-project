@@ -14,7 +14,7 @@ import useBreakpoint from 'use-breakpoint';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 
 const richTextClasses = clx(
-  'prose prose-ul:pl-0 prose-ul:ml-6 prose-li:pl-0 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-2xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
+  'prose prose-invert prose-ul:pl-0 prose-ul:ml-6 prose-li:pl-0 prose-ul:space-y-1 prose-h1:font-bold prose-h1:text-2xl prose-h1:mb-4 prose-h2:mb-2 max-w-none',
   'prose-h2:mt-0 prose-h3:mb-2 prose-h4:mb-2 prose-li:my-0',
   'prose-p:my-1 prose-hr:my-4 prose-ul:my-0 prose-label:mt-0'
 );
@@ -157,8 +157,8 @@ export default function Notes() {
           content="This is a Note Application written in Next.js"
         />
       </Head>
-      <div>
-        <div className="mx-auto min-h-screen">
+      <div className='bg-gray-800'>
+        <div className="mx-auto min-h-screen h-screen pt-2">
           <ResizablePanelGroup className='min-h-screen xl:min-h-0' direction={breakpoint === 'desktop' ? 'horizontal' : 'vertical'}>
             <ResizablePanel minSize={25} defaultSize={25}>
               <ScrollArea className='h-full'>
