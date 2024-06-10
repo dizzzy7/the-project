@@ -25,15 +25,26 @@ will run a production deployment whenever something is pushed to main.
 - multiple small utility libraries
   - uuid, DOMPurify, Animate-Height, clx
  
-#### Note App
+
+#### Notes App
+
 - TipTap (RichText Editor Library)
 - HeadlessUI
 
 ### Next Steps
 I want to use a Database to persist the state of my apps.
 
+
 Note App:
+
 - add drag and drop functionality using dnd-kit
 
 TicTacToe:
 - persist the score and add a global score reset
+
+---
+
+Leaving some notes here for me as a little roadmap/todo list:
+
+- [ ] - add react-count to increase the displayed stats
+- [ ] - use react-intersection-observer to time the react-count effect when it is scrolled in
