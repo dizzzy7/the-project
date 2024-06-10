@@ -9,7 +9,7 @@ export default function Home() {
       <div className='container grid grid-cols-[21rem_auto] h-full min-h-screen'>
         <div className='border-l border-r border-slate-500 px-8 '>
           <nav className='flex flex-col h-full min-h-screen align-middle fixed'>
-            <h1 className='fixed top-0 pt-16 px-2 text-4xl font-bold tracking-wide'>Sait<span className='text-red-300'>'</span>s<br /><span className='font-normal tracking-normal'>Project</span></h1>
+            <h1 className='fixed top-0 pt-16 px-2 text-4xl font-bold tracking-wide'>Sait<span className='text-red-300'>&apos;</span>s<br /><span className='font-normal tracking-normal'>Project</span></h1>
             <ul className='space-y-5 flex flex-col pt-16 p-12 justify-center h-full'>
               <li className='before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
                 <Link className='text-3xl opacity-60 hover:opacity-100 transition-opacity' href={'#about-me'}>
@@ -50,7 +50,7 @@ export default function Home() {
           <div id='side-projects' className='flex min-h-screen my-10'>
             <div className='my-auto'>
               <h1>Side Projects</h1>
-              <p>I am creating projects in my free time and showcase them here, since it's hard for me to show all the things that I built for other companies.</p>
+              <p>I am creating projects in my free time and showcase them here, since it&apos;s hard for me to show all the things that I built for other companies.</p>
               <p>Here is a list with links:</p>
               <ul className='text-xl -mt-3'>
                 <li>
