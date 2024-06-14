@@ -66,10 +66,10 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
         type="text"
         ref={(el) => {
           if (props.editorRef) {
-            return (props.editorRef.current.title = el);
+            props.editorRef.current.title = el
           }
         }}
-        className="w-full p-2 text-2xl font-bold border-b border-b-gray-400 bg-gray-600"
+        className="w-full p-2 text-2xl font-bold border-b border-b-gray-500 border border-gray-600 bg-gray-700 placeholder-gray-600"
         value={titleInputValue}
         onChange={(e) => {
           if (editor) {
@@ -82,7 +82,7 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
       <EditorContent
         className={clx(
           props.richTextClasses,
-          'bg-gray-600 w-full p-2 [&>div]:min-h-[100px] [&>div]:xl:min-h-[300px] h-[calc(100%-125px)]'
+          'bg-gray-700 w-full border-gray-600 border border-t-0 p-2 [&>div]:min-h-[100px] [&>div]:xl:min-h-[300px] h-[calc(100%-125px)] [&>*]:h-full overflow-auto placeholder-gray-600'
         )}
         editor={editor}
         placeholder=". . . . ."
