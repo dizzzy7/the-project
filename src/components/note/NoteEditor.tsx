@@ -82,7 +82,7 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
       <EditorContent
         className={clx(
           props.richTextClasses,
-          'bg-gray-600 w-full p-2 [&>div]:min-h-[100px] [&>div]:xl:min-h-[300px] h-[calc(100%-125px)]'
+          'bg-gray-600 w-full p-2 [&>div]:min-h-[100px] [&>div]:xl:min-h-[300px] h-[calc(100%-125px)] [&>*]:h-full overflow-auto'
         )}
         editor={editor}
         placeholder=". . . . ."
