@@ -66,7 +66,7 @@ const NoteEditor = forwardRef((props: NoteEditorProps, ref) => {
         type="text"
         ref={(el) => {
           if (props.editorRef) {
-            return (props.editorRef.current.title = el);
+            props.editorRef.current.title = el
           }
         }}
         className="w-full p-2 text-2xl font-bold border-b border-b-gray-400 bg-gray-600"
