@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function Home() {
@@ -40,7 +41,7 @@ export default function Home() {
         </div>
         <div className='px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch'>
           <div id='about-me' className='flex min-h-screen my-10'>
-            <div className='my-auto'>
+            <div className='my-auto py-8'>
               <h1>About me.</h1>
               <p><span className='text-green-200 text-xl mr-2'>Hello there!</span> I am Sait. A developer based in Berlin, Germany.</p>
               <p>Over the duration of my <span className='text-green-300'>3 years</span> of studies <span className='text-green-300'>I have been working as a web developer</span> <span className='text-gray-400'>(20h/week)</span>.</p>
@@ -48,7 +49,7 @@ export default function Home() {
             </div>
           </div>
           <div id="experience" className='flex min-h-screen my-10'>
-            <div className='my-auto'>
+            <div className='my-auto py-8'>
               <h1>Experience</h1>
               <p>I have worked on several websites and projects. Here are the ones that I can publicly list:</p>
               <ul className='text-2xl'>
@@ -58,32 +59,35 @@ export default function Home() {
                 <li><a className='text-blue-200 hover:text-blue-400 decoration-white/30 hover:decoration-white/90 transition-all underline-offset-8 decoration-1' href="https://kh-zahnarztpraxis.de/">KH Zahnarztpraxis</a></li>
                 <li><a className='text-cyan-200 hover:text-blue-400 decoration-white/30 transition-all underline-offset-8 decoration-1 hover:decoration-white/90' href="https://can-facilityservices.de/">Can Facility Services</a></li>
               </ul>
+              <p>In my latest projects I have been using <span className='text-cyan-200'>React + Typescript.</span> I implemented API integrations to the frontend with <span className='text-white'>Tanstack Query</span>, created a graphical application with <span className='text-cyan-200'>konva.js</span>, and solved several problems using different combinations of libraries.</p>
               <p>In my early career I built websites for small companies. I implemented designs and ideas in plain HTML, CSS, JS with Wordpress as the CMS.</p>
-              <p>Later I got to use React + Typescript in my work. <strong>I implemented API integrations to the frontend with Tanstack Query, created a graphical application with konva.js, and solved several problems using different combinations of libraries.</strong></p>
             </div>
           </div>
           <div id='side-projects' className='flex min-h-screen my-10'>
-            <div className='my-auto'>
+            <div className='my-auto py-8'>
               <h1>Side Projects</h1>
               <p>I am creating projects in my free time and showcase them here, since it&apos;s hard for me to show all the things that I built for other companies.</p>
               <p>Here is a list with links:</p>
-              <ul className='text-xl -mt-3'>
+              <ul className='-mt-3'>
                 <li>
-                  <Link className='!text-blue-400 hover:opacity-100 opacity-90 transition-all' href={'/notes'}>
-                    Notes
+                  <Link className='text-xl' href={'/notes'}>
+                    <Button className='bg-blue-800 hover:bg-blue-700 text-md w-40'>Notes</Button>
                   </Link>
+                  <span> - uses TipTap (Editor)</span>
                 </li>
                 <li>
-                  <Link className='!text-blue-200 hover:opacity-90 opacity-60 transition-all' href={'/tictactoe'}>
-                    Tic-Tac-Toe
+                  <Link className='text-xl opacity-80' href={'/tictactoe'}>
+                    <Button className='bg-blue-900 hover:bg-blue-700 text-md w-40'>Tic-Tac-Toe </Button>
                   </Link>
+                  <span className='!no-underline'> - uses React only</span>
+
                 </li>
               </ul>
               <p>My main frontend framework I use is <span className='text-cyan-300'>React</span>.</p>
             </div>
           </div>
           <div id="tech-i-use" className='flex min-h-screen mb-10 pt-32'>
-            <div className='my-auto'>
+            <div className='my-auto py-8'>
               <h1 className='!font-bold'>Tech I use</h1>
               <h2 className='!font-normal opacity-90 mb-3 mt-8'>Frontend Frameworks</h2>
               <ul>
@@ -112,6 +116,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </main >
   );
 }
