@@ -1,17 +1,29 @@
+'use client';
+
+import clsx from 'clsx';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Navigation() {
+  const [isNavigationVisible, setIsNavigationVisible] = useState(false);
   return (
     <div className="border-l border-r border-slate-500 px-8 lg:px-0">
       <nav className="flex lg:flex-col lg:h-full lg:min-h-screen align-middle fixed top-0 left-0 right-0 lg:left-auto lg:right-auto px-5 lg:w-auto justify-between">
-        <h1 className="fixed top-0 pt-6 lg:pt-16 px-2 text-3xl lg:text-4xl font-bold tracking-wide">
+        <h1 className="pt-6 lg:pt-16 px-2 text-3xl lg:text-4xl font-bold tracking-wide relative">
           Sait<span className="text-red-300">&apos;</span>s<br />
           <span className="font-normal tracking-normal">Project</span>
         </h1>
-        <ul className="space-y-5 flex flex-col pt-6 lg:pt-16 lg:p-12 justify-center h-full ml-auto">
+        <ul
+          className={clsx(
+            'space-y-5 flex flex-col pt-20 lg:pt-16 lg:p-12 lg:justify-center justify-start lg:h-full ml-auto fixed right-0 top-0 lg:static bg-gray-800 lg:border-0 border-b border-l pl-14 pr-4 pb-6 h-fit transition-transform lg:transition-none lg:translate-x-0 lg:opacity-100 opacity-0',
+            isNavigationVisible
+              ? 'translate-x-0 opacity-100 transition-all'
+              : 'translate-x-6 opacity-0'
+          )}
+        >
           <li className='before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
             <Link
-              className="text-2xl opacity-60 hover:opacity-100 transition-opacity"
+              className="text-2xl opacity-60 hover:opacity-100 transition-opacity pr-16"
               href={'#about-me'}
             >
               About me
@@ -58,6 +70,25 @@ export default function Navigation() {
             </Link>
           </li>
         </ul>
+        <div
+          className="fixed top-0 right-0 text-red-200 w-8 m-6 lg:hidden"
+          onClick={() => setIsNavigationVisible(!isNavigationVisible)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </div>
       </nav>
     </div>
   );

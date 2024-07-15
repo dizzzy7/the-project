@@ -1,9 +1,17 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import Container from './container';
 import FixedGradientTop from '@/components/visual-components/fixed-gradient-top';
 import FixedGradientBottom from '@/components/visual-components/fixed-gradient-bottom';
 import Navigation from './navigation';
+import Container from './container';
+import { IconBadge } from '@/components/ui/icon-badge';
+import ReactBadge from '../../public/ReactBadge.svg';
+import VueBadge from '../../public/VueBadge.svg';
+import AlpineBadge from '../../public/AlpineBadge.svg';
+import AffinityPhotoLogo from '../../public/AffinityPhotoLogo.svg';
+import ArchiveIcon from '../../public/ArchiveIcon.svg';
+import BlenderLogo from '../../public/BlenderLogo.svg';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -100,8 +108,8 @@ export default function Home() {
               </p>
               <p>
                 In my early career I built websites for small companies. I
-                implemented designs and ideas in plain HTML, CSS, JS with
-                Wordpress as the CMS.
+                implemented designs and ideas in plain HTML, CSS, JS using
+                Wordpress in the backend.
               </p>
             </div>
           </section>
@@ -109,9 +117,10 @@ export default function Home() {
             <div className="my-auto py-8">
               <h1>Side Projects</h1>
               <p>
-                I am creating projects in my free time and showcase them here,
-                since it&apos;s hard for me to show all the things that I built
-                for other companies.
+                I am creating projects with{' '}
+                <span className="text-cyan-300">React</span> in my free time and
+                showcase them here, since it&apos;s hard for me to show all the
+                things that I built for other companies.
               </p>
               <p>Here is a list with links:</p>
               <ul className="-mt-3">
@@ -132,59 +141,118 @@ export default function Home() {
                   <span className="!no-underline"> - uses React only</span>
                 </li>
               </ul>
-              <p>
-                My main frontend framework I use is{' '}
-                <span className="text-cyan-300">React</span>.
-              </p>
             </div>
           </section>
           <section id="tech-i-use" className="flex min-h-screen mb-10 pt-32">
             <div className="my-auto py-8">
               <h1 className="!font-bold">Tech I use</h1>
-              <h2 className="!font-normal opacity-90 mb-3 mt-8">
-                Frontend Frameworks
-              </h2>
+              <h2 className="opacity-90 font-medium">Javascript Libraries: </h2>
               <ul>
                 <li className="!text-xl">
-                  Main framework:{' '}
-                  <strong className="text-cyan-300">React</strong>
-                </li>
-                <li className="!text-xl">
-                  Other frameworks I used:{' '}
-                  <strong>
-                    <span className="text-green-400">Vue 2</span>,{' '}
-                    <span className="text-blue-400">Alpine.js</span>
-                  </strong>
+                  Frontend frameworks:{' '}
+                  <div className="flex mt-2 space-x-4">
+                    <IconBadge
+                      className="text-cyan-300 border-cyan-300 bg-cyan-300/5 drop-shadow"
+                      text={'React'}
+                    >
+                      <ReactBadge />
+                    </IconBadge>
+                    <IconBadge
+                      className="text-green-300 border-green-300/10 bg-green-300/5 opacity-50 drop-shadow"
+                      text={'Vue 2'}
+                    >
+                      <VueBadge />
+                    </IconBadge>
+                    <IconBadge
+                      className="text-blue-300/70 border-blue-300 bg-blue-300/5 opacity-60 drop-shadow"
+                      text={'Alpine.js'}
+                    >
+                      <AlpineBadge />
+                    </IconBadge>
+                  </div>
                 </li>
               </ul>
-              <h2 className="!font-normal opacity-90 mb-3 mt-8">
-                Amazing Libraries
-              </h2>
               <ul>
                 <li className="!text-xl">
+                  <ArchiveIcon className="w-10 inline-block mr-3 text-orange-300" />
                   <strong className="opacity-80">Tanstack Query</strong> -
-                  improves everything revolving data fetching
+                  library to manage fetched data
                 </li>
                 <li className="!text-xl">
+                  <Image
+                    className="inline-block w-10 rounded-lg mr-3 opacity-40 my-0"
+                    src={'/ShadcnLogo.png'}
+                    alt={'shadcn-ui logo'}
+                    width={40}
+                    height={40}
+                  />
                   <strong className="opacity-80">shadcn/ui</strong> - component
                   library
                 </li>
                 <li className="!text-xl">
-                  <strong className="opacity-80">konva.js</strong> - 2d canvas
-                  app library
+                  <Image
+                    className="inline-block w-10 rounded-lg mr-3 opacity-90 my-0"
+                    src={'/KonvaLogo.png'}
+                    alt={'Konva.js logo'}
+                    width={40}
+                    height={40}
+                  />
+                  <strong className="opacity-80">konva.js</strong> - canvas
+                  library for 2D graphics apps
                 </li>
               </ul>
-              <h2 className="!font-normal opacity-90 mb-3 mt-8">
+              <hr />
+              <h2 className="!font-normal opacity-90 mb-5 mt-10">
                 Graphics Applications
               </h2>
-              <a
-                className="text-white/70 hover:text-white/90 transition-all decoration-white/40 underline-offset-4 hover:decoration-white/100 py-3 text-lg"
-                target="_blank"
-                href="https://www.behance.net/Sait1?locale=de_DE"
+              <ul className="text-xl space-y-4 leading-8">
+                <li>
+                  <Image
+                    className="inline-block w-10 rounded-lg mr-1 opacity-90 my-0"
+                    src={'/AdobePhotoshopLogo.png'}
+                    alt={'Adobe Photoshop Logo'}
+                    width={40}
+                    height={40}
+                  />{' '}
+                  OR{' '}
+                  <AffinityPhotoLogo className="w-10 inline-block ml-1 mr-0" />{' '}
+                  - Used to work with Adobe Products and transitioned to
+                  Affinity Apps.
+                </li>
+                <li>
+                  <div className="bg-black/30 w-10 h-10 text-center inline-flex mr-3 justify-center align-middle rounded-lg ">
+                    <Image
+                      className="inline-block h-8 w-auto opacity-90 my-auto"
+                      src={'/FigmaLogo.png'}
+                      alt={'Figma Logo'}
+                      width={30}
+                      height={30}
+                    />{' '}
+                  </div>
+                  <strong className="opacity-80">Figma</strong> - for web
+                  designs, from components to full pages.
+                </li>
+                <li>
+                  <div className="bg-black/20 w-10 h-10 text-center inline-flex mr-3 justify-center align-middle rounded-lg ">
+                    <BlenderLogo className="inline-block w-8 opacity-90 my-auto" />{' '}
+                  </div>
+                  For 3D I use blender.
+                  <div></div>
+                </li>
+              </ul>
+              <Button
+                className="h-14 inline-grid place-items-center bg-sky-900/50 hover:bg-sky-900/90"
+                asChild
               >
-                I started with only Adobe Products and transitioned to Affinity
-                Apps. I also use Figma. For 3D I use blender.
-              </a>
+                <Link
+                  className="text-white/70 hover:text-white/90 transition-all decoration-white/40 no-underline hover:decoration-white/100 text-xl"
+                  target="_blank"
+                  href="https://www.behance.net/Sait1?locale=de_DE"
+                >
+                  🔗 Check out some of my art here 🔗
+                </Link>
+              </Button>
+              <hr />
               <h2 className="!font-normal opacity-90">For Coding</h2>
               <ul>
                 <li className="!text-xl">
@@ -212,7 +280,7 @@ export default function Home() {
                 <li className="!text-xl">
                   <strong className="opacity-80">Java Spring Boot</strong> -
                   will probably rebuild what I will have built in Node.js +
-                  Express.js in this tech stack.
+                  Express.js in this tech stack as a learning.
                 </li>
               </ul>
             </div>
