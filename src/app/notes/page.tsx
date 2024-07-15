@@ -1,6 +1,8 @@
+'use client';
+
 import Head from 'next/head';
 
-import '@/app/globals.css';
+import '@/globals.css';
 
 import NoteList, { Note } from '@/components/note/NoteList';
 import NoteEditor from '@/components/note/NoteEditor';
@@ -9,7 +11,11 @@ import { useEffect, useRef, useState } from 'react';
 import { clx } from '@/utils/clx';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable';
 import useBreakpoint from 'use-breakpoint';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 
@@ -109,9 +115,11 @@ export default function Notes() {
     },
   ]);
 
-  const { breakpoint, maxWidth, minWidth } = useBreakpoint(
-    { mobile: 0, tablet: 768, desktop: 1280 }
-  )
+  const { breakpoint, maxWidth, minWidth } = useBreakpoint({
+    mobile: 0,
+    tablet: 768,
+    desktop: 1280,
+  });
 
   const [activeNoteIndex, setActiveNoteIndex] = useState<number | null>(null);
   const [previewNoteIndex, setPreviewNoteIndex] = useState<number | null>(null);
@@ -147,7 +155,6 @@ export default function Notes() {
     setActiveNoteIndex(null);
   };
 
-
   return (
     <>
       <Head>
@@ -157,11 +164,14 @@ export default function Notes() {
           content="This is a Note Application written in Next.js"
         />
       </Head>
-      <div className='bg-gray-800'>
+      <div className="bg-gray-800">
         <div className="mx-auto min-h-screen h-screen pt-2">
-          <ResizablePanelGroup className='min-h-screen xl:min-h-0' direction={breakpoint === 'desktop' ? 'horizontal' : 'vertical'}>
+          <ResizablePanelGroup
+            className="min-h-screen xl:min-h-0"
+            direction={breakpoint === 'desktop' ? 'horizontal' : 'vertical'}
+          >
             <ResizablePanel minSize={25} defaultSize={25}>
-              <ScrollArea className='h-full'>
+              <ScrollArea className="h-full">
                 <NoteList
                   richTextClasses={richTextClasses}
                   notes={notes}
@@ -186,7 +196,7 @@ export default function Notes() {
                 />
               </ScrollArea>
             </ResizablePanel>
-            <ResizableHandle className='mx-3' withHandle />
+            <ResizableHandle className="mx-3" withHandle />
             <ResizablePanel minSize={25} defaultSize={75}>
               <NoteEditor
                 richTextClasses={richTextClasses}
@@ -196,7 +206,9 @@ export default function Notes() {
                   if (noteId === null) {
                     noteId = uuidv4();
                   }
-                  const noteIndex = notes.findIndex((note) => note.id === noteId);
+                  const noteIndex = notes.findIndex(
+                    (note) => note.id === noteId
+                  );
 
                   // save note if it is new, else just overwrite
                   if (noteIndex === -1) {
@@ -207,19 +219,16 @@ export default function Notes() {
                         content: newNoteContent,
                         done: false,
                       },
-                      ...notes
+                      ...notes,
                     ];
                     setNotes(newNotes);
-                    setActiveNoteIndex(0)
-
-
+                    setActiveNoteIndex(0);
                   } else {
                     const newNotes = [...notes];
 
                     newNotes[noteIndex].title = newNoteTitle;
                     newNotes[noteIndex].content = newNoteContent;
                     setNotes(newNotes);
-
                   }
 
                   if (persist) {
