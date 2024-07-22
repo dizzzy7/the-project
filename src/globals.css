@@ -64,6 +64,10 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  .overflow-wrap-any {
+    overflow-wrap: anywhere;
+  }
 }
 
 /* @layer utilities { */
@@ -83,10 +87,10 @@
 
 /* prose checkbox lists css fix */
 
-ul[data-type="taskList"] {
+ul[data-type='taskList'] {
   margin-left: 0;
 }
 
-ul[data-type="taskList"] {
+ul[data-type='taskList'] {
   margin-top: 0;
 }
