@@ -15,12 +15,12 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-800 text-slate-100">
+    <main className="min-h-screen bg-gray-800 text-slate-100 [&_*]:min-w-0">
       <FixedGradientBottom />
       <FixedGradientTop />
       <Container>
         <Navigation />
-        <div className="px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch">
+        <div className="sm:px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch">
           <section id="about-me" className="flex min-h-screen my-10">
             <div className="my-auto py-8">
               <h1>About me.</h1>
@@ -150,7 +150,7 @@ export default function Home() {
               <ul>
                 <li className="!text-xl">
                   Frontend frameworks:{' '}
-                  <div className="flex mt-2 space-x-4">
+                  <div className="flex mt-2 gap-4 flex-wrap">
                     <IconBadge
                       className="text-cyan-300 border-cyan-300 bg-cyan-300/5 drop-shadow"
                       text={'React'}
@@ -241,15 +241,15 @@ export default function Home() {
                 </li>
               </ul>
               <Button
-                className="h-14 inline-grid place-items-center bg-sky-900/50 hover:bg-sky-900/90"
+                className="bg-sky-900/50 hover:bg-sky-900/90 inline-block py-3 h-auto"
                 asChild
               >
                 <Link
-                  className="text-white/70 hover:text-white/90 transition-all decoration-white/40 no-underline hover:decoration-white/100 text-xl"
+                  className="text-white/70 hover:text-white/90 transition-all decoration-white/40 no-underline hover:decoration-white/100 text-xl overflow-wrap-any !whitespace-normal min-w-0 py-2"
                   target="_blank"
                   href="https://www.behance.net/Sait1?locale=de_DE"
                 >
-                  🔗 Check out some of my art here 🔗
+                  <span>🔗</span> Check out some of my art here <span>🔗</span>
                 </Link>
               </Button>
               <hr />
