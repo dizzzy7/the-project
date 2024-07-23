@@ -15,7 +15,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-800 text-slate-100 [&_*]:min-w-0">
+    <main className="min-h-screen bg-gray-800 text-slate-100 [&_*]:min-w-0 pt-10">
       <FixedGradientBottom />
       <FixedGradientTop />
       <Container>
