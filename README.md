@@ -10,7 +10,7 @@ I deployed this project on Vercel.
 
 Here is the link:
 
-https://the-project-ashen.vercel.app/
+https://idemi.de
 
 ---
 
