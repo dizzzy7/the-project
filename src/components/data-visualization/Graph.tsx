@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { Serie } from '@nivo/line';
+import { linearGradientDef } from '@nivo/core';
 import dynamic from 'next/dynamic';
 
 const ResponsiveLine = dynamic(
@@ -16,8 +17,26 @@ interface LineChartProps {
 
 const LineChart: React.FC<LineChartProps> = ({ data }) => {
   return (
-    <div style={{ height: 400 }}>
+    <div style={{ height: 400 }} className="not-prose">
       <ResponsiveLine
+        lineWidth={4}
+        onTouchStart={(point, event) => {
+          console.log(`This point got clicked`);
+          console.log(point);
+        }}
+        enableGridX={false}
+        enablePoints={false}
+        theme={{
+          text: {
+            fill: '#fff',
+          },
+          tooltip: {
+            container: {
+              color: 'black',
+              fontSize: 12,
+            },
+          },
+        }}
         data={data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
@@ -71,13 +90,20 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
               {
                 on: 'hover',
                 style: {
-                  itemBackground: 'rgba(0, 0, 0, .03)',
+                  itemBackground: 'rgba(255, 255, 255, .03)',
                   itemOpacity: 1,
                 },
               },
             ],
           },
         ]}
+        defs={[
+          linearGradientDef('gradientA', [
+            { offset: 0, color: '#000000' },
+            { offset: 100, color: '#ffffff' },
+          ]),
+        ]}
+        fill={[{ match: '*', id: 'gradientA' }]}
       />
     </div>
   );

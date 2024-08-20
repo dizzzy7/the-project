@@ -208,11 +208,12 @@ export default function Home() {
               <ul className="text-xl space-y-4 leading-8">
                 <li>
                   <Image
-                    className="inline-block w-10 rounded-lg mr-1 opacity-90 my-0"
+                    className="inline-block rounded-lg mr-1 opacity-90 my-0"
                     src={'/AdobePhotoshopLogo.png'}
                     alt={'Adobe Photoshop Logo'}
+                    height={39.16}
                     width={40}
-                    height={40}
+                    style={{ width: '40px', height: 'auto' }}
                   />{' '}
                   OR{' '}
                   <AffinityPhotoLogo className="w-10 inline-block ml-1 mr-0" />{' '}
