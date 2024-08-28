@@ -34,62 +34,60 @@ const CurrencyGraph = () => {
     return new Date();
   }, []);
 
+  const relevantDates = useMemo(() => {
+    const dates = Array.from({ length: 31 }, (_, i) => {
+      return subDays(currentDate, i);
+    });
+
+    return dates.reverse();
+  }, [currentDate]);
+
   const queries = useMemo(() => {
-    const queries = Array.from({ length: 31 }, (_, i) => {
-      const currentDateFormatted = format(
-        subDays(currentDate, i),
-        'yyyy-MM-dd'
-      );
+    return relevantDates.map((relevantDate, index) => {
+      const relevantDateFormatted = format(relevantDate, 'yyyy-MM-dd');
       return {
-        queryKey: [`currency-${currency}-${currentDateFormatted}`],
+        queryKey: [`currency-${currency}-${relevantDateFormatted}`],
         queryFn: async () => {
           const response = await fetch(
-            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${currentDateFormatted}/v1/currencies/eur.json`
+            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${
+              index === 0 ? 'latest' : relevantDateFormatted
+            }/v1/currencies/eur.json`
           );
           return await response.json();
         },
         staleTime: Infinity,
       };
     });
-    return queries;
-  }, [currency, currentDate]);
+  }, [currency, relevantDates]);
 
   const results = useQueries({ queries });
 
   const dataArray = results.map((result) => result.data);
 
-  console.log(dataArray);
-
-  const currencyData = useMemo<Serie>(() => {
-    let data: Datum[] = [];
-    let result: Serie;
-    if (dataArray && dataArray.length > 0) {
-      data = dataArray.map((data, index) => {
-        if (data && data.eur && data.eur[currency]) {
-          return {
-            x: index,
-            y: data.eur[currency],
-          };
-        } else {
-          return {
-            x: null,
-            y: null,
-          };
-        }
-      });
+  const areQueriesReady = useMemo(() => {
+    for (let index = 0; index < dataArray.length; index++) {
+      const element = dataArray[index];
+      if (element === undefined) {
+        return;
+      }
     }
-    result = {
-      id: currency,
-      color: `hsl(${Math.random() * 100}, 70%, 50%)`,
-      data: data,
+  }, [dataArray]);
+
+  let resultingCurrencyData: Serie;
+
+  let data = dataArray.map((data, index) => {
+    return {
+      x: format(relevantDates[index], 'dd.MM.yy'),
+      y: data.eur[currency],
     };
+  });
+  resultingCurrencyData = {
+    id: currency,
+    color: `hsl(${Math.random() * 100}, 70%, 50%)`,
+    data: data,
+  };
 
-    return result;
-  }, [currency, dataArray]);
-
-  // if (isPending) return 'Loading...';
-
-  // if (error) return 'An error has occurred: ' + error.message;
+  const currencyData = resultingCurrencyData;
 
   return (
     <div className="prose prose-invert mx-auto">
@@ -104,7 +102,13 @@ const CurrencyGraph = () => {
           </SelectContent>
         </Select>
         <span className="text-white">to</span>
-        <Select value={currency} onValueChange={setCurrency}>
+        <Select
+          value={currency}
+          onValueChange={(value) => {
+            console.log(value);
+            setCurrency(value);
+          }}
+        >
           <SelectTrigger className="w-[180px] text-black">
             <SelectValue />
           </SelectTrigger>
@@ -131,7 +135,8 @@ const CurrencyGraph = () => {
           <SelectItem value="year">Past Year</SelectItem>
         </SelectContent>
       </Select>
-      {currencyData ? <Graph data={[currencyData]} /> : ''}
+      {/* TODO: add proper ticks on the x and y axis */}
+      <Graph data={[currencyData]} />
     </div>
   );
 };
