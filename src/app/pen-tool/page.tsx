@@ -15,6 +15,7 @@ const PenToolApplication = () => {
   const [clickStart, setClickStart] = useState<Vector2d | null>(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 }); // Default dimensions
   const [isNewPoint, setIsNewPoint] = useState(false);
+  const [isClosed, setIsClosed] = useState(false);
 
   const generateAnchor = useCallback(
     (point: Vector2d, index: number) => {
@@ -37,13 +38,13 @@ const PenToolApplication = () => {
   );
 
   const generateAnchorLine = useCallback(
-    (point1: Vector2d, point2: Vector2d) => {
+    (point1: Vector2d, point2: Vector2d, isClosingSegment: boolean = false) => {
       const points = [point1, point2];
       return (
         <Line
           key={crypto.randomUUID()}
           points={points.flatMap((point) => [point.x, point.y])}
-          stroke="gray"
+          stroke={isClosingSegment ? 'red' : 'gray'}
           strokeWidth={1.5}
           lineJoin="round"
           lineCap="round"
@@ -52,6 +53,32 @@ const PenToolApplication = () => {
     },
     []
   );
+
+  const closePath = useCallback(() => {
+    if (updatedPoints.length >= 4) {
+      const firstPoint = updatedPoints[0];
+      const lastAnchorIndex = Math.floor((updatedPoints.length - 1) / 3) * 3;
+      const lastPoint = updatedPoints[lastAnchorIndex];
+
+      const handleAfterLast = {
+        x: lastPoint.x + (lastPoint.x - updatedPoints[lastAnchorIndex - 1].x),
+        y: lastPoint.y + (lastPoint.y - updatedPoints[lastAnchorIndex - 1].y),
+      };
+
+      const handleBeforeFirst = {
+        x: firstPoint.x - (updatedPoints[1].x - firstPoint.x),
+        y: firstPoint.y - (updatedPoints[1].y - firstPoint.y),
+      };
+
+      const newPoints = updatedPoints.slice(0, lastAnchorIndex + 1);
+      newPoints.push(handleAfterLast, handleBeforeFirst, { ...firstPoint });
+
+      setUpdatedPoints(newPoints);
+      setPoints(newPoints);
+      setIsClosed(true);
+      setPointSelection(new Set()); // clear Selection after closing
+    }
+  }, [updatedPoints]);
 
   const doSelection = useCallback(
     (
@@ -73,14 +100,14 @@ const PenToolApplication = () => {
           setPointSelection(new Set(pointSelection).add(index));
         }
       } else if (isAnchor && type === 'handles') {
-        const pointsToBeSelected = [index];
-        if (index - 1 >= 0) {
-          pointsToBeSelected.push(index - 1);
+        const pointsToBeSelected = new Set([index]);
+        if (index - 1 >= 0 && !isAnchorPoint(index - 1)) {
+          pointsToBeSelected.add(index - 1);
         }
-        if (index + 1 <= updatedPoints.length - 1) {
-          pointsToBeSelected.push(index + 1);
+        if (index + 1 < updatedPoints.length - 1 && !isAnchorPoint(index + 1)) {
+          pointsToBeSelected.add(index + 1);
         }
-        setPointSelection(new Set(pointsToBeSelected));
+        setPointSelection(pointsToBeSelected);
       } else if (isAnchor && type === 'add') {
         setPointSelection(new Set(pointSelection).add(index));
       } else if (type === 'reset') {
@@ -90,76 +117,92 @@ const PenToolApplication = () => {
         adjustedSet.delete(index);
         setPointSelection(adjustedSet);
       }
-      console.log(pointSelection);
     },
     [pointSelection, updatedPoints.length]
   );
 
   const handleMouseDown = (event: Konva.KonvaEventObject<MouseEvent>) => {
+    if (isClosed && event.target.className === undefined) {
+      return;
+    }
+
     setDragging(true);
 
     const stage = event.target.getStage();
     const point = stage?.getPointerPosition();
 
     if (!point) {
-      return;
+      return; // Don't allow new points if path is closed
     }
 
     setClickStart(point);
 
-    // clear all selects if ctrl click on background
-    if (event.target.className === undefined && event.evt.ctrlKey) {
-      doSelection(null);
-      setIsNewPoint(false);
-      // handle select of anchor and control points
-    } else if (
+    if (
       event.target.className === 'Rect' ||
       event.target.className === 'Circle'
     ) {
       const pointIndex = Number(event.target.id());
-      const isAnchor = isAnchorPoint(pointIndex);
       setIsNewPoint(false);
-      // if click on handle with ctrl, select it
+
+      if (!isClosed && pointIndex === 0 && updatedPoints.length >= 4) {
+        closePath();
+        return;
+      }
+
+      // point selection logic
       if (event.evt.ctrlKey) {
         doSelection(pointIndex, 'add');
-      }
-
-      // if regular click on anchorPoint, select control and anchor points
-      if (isAnchor) {
-        doSelection(pointIndex, 'handles');
-        doSelection(pointIndex, 'add');
-        // if regular click on control point, just select and drag it
-      } else if (!isAnchor) {
-        doSelection(pointIndex, 'reset');
-      }
-      // create a new point, if click is on canvas
-    } else if (event.target.className === undefined) {
-      // Stage was clicked -> set point
-      let newPoints;
-      setIsNewPoint(true);
-
-      // if this is not the initial point, add another one
-      if (updatedPoints.length === 0) {
-        newPoints = [
-          { x: point.x, y: point.y },
-          { x: point.x, y: point.y },
-        ];
-        doSelection(1, 'reset');
       } else {
-        newPoints = [
-          ...updatedPoints,
-          { x: point.x, y: point.y },
-          { x: point.x, y: point.y },
-          { x: point.x, y: point.y },
-        ];
-        const newHandleIndices = new Set([
-          newPoints.length - 3,
-          newPoints.length - 1,
-        ]);
-        setPointSelection(newHandleIndices);
+        if (event.target.className === 'Circle') {
+          doSelection(pointIndex, 'reset');
+        } else {
+          doSelection(pointIndex, 'handles');
+        }
+      }
+    } else if (event.target.className === undefined) {
+      if (event.evt.ctrlKey) {
+        doSelection(null);
+        setIsNewPoint(false);
+        return;
       }
 
-      setUpdatedPoints(newPoints);
+      if (!isClosed && updatedPoints.length >= 4) {
+        const firstPoint = updatedPoints[0];
+        const distance = distanceBetweenPoints(firstPoint, point);
+
+        if (distance < 20) {
+          closePath();
+          return;
+        }
+      }
+
+      if (!isClosed) {
+        setIsNewPoint(true);
+        let newPoints;
+
+        // if this is not the initial point, add another one
+        if (updatedPoints.length === 0) {
+          newPoints = [
+            { x: point.x, y: point.y },
+            { x: point.x, y: point.y },
+          ];
+          doSelection(1, 'reset');
+        } else {
+          newPoints = [
+            ...updatedPoints,
+            { x: point.x, y: point.y },
+            { x: point.x, y: point.y },
+            { x: point.x, y: point.y },
+          ];
+          const newHandleIndices = new Set([
+            newPoints.length - 3,
+            newPoints.length - 1,
+          ]);
+          setPointSelection(newHandleIndices);
+        }
+
+        setUpdatedPoints(newPoints);
+      }
     }
   };
 
@@ -169,9 +212,9 @@ const PenToolApplication = () => {
 
     if (!dragging || !point || pointSelection.size === 0 || !clickStart) return;
 
-    if (isNewPoint) {
-      const newPoints = updatedPoints.slice();
-    }
+    const newPoints = structuredClone(updatedPoints);
+    const lastAnchorIndex = Math.floor((newPoints.length - 1) / 3) * 3;
+
     if (
       pointSelection.size == 2 &&
       [...pointSelection].filter((pointIndex) => {
@@ -184,35 +227,62 @@ const PenToolApplication = () => {
       // selection are mirrored handles
       if (max - min === 2) {
         const basePoint = updatedPoints[max - 1];
-        const newPoints = updatedPoints.slice();
-
-        newPoints[max] = { x: point.x, y: point.y }; // move newest handle to current cursor position
+        newPoints[max] = { x: point.x, y: point.y };
         newPoints[min] = {
           x: basePoint.x + (basePoint.x - point.x),
           y: basePoint.y + (basePoint.y - point.y),
         };
-        setUpdatedPoints(newPoints);
       }
-    } else if (distanceBetweenPoints(clickStart, point) > 5) {
-      const newPoints = structuredClone(updatedPoints);
+    } else {
+      // handle single point movement
+      for (const selectedIndex of pointSelection) {
+        // Calculate new position
+        const newX = newPoints[selectedIndex].x + (point.x - clickStart.x);
+        const newY = newPoints[selectedIndex].y + (point.y - clickStart.y);
 
-      for (const item of pointSelection) {
-        newPoints[item].x = newPoints[item].x + (point.x - clickStart.x);
-        newPoints[item].y = newPoints[item].y + (point.y - clickStart.y);
+        newPoints[selectedIndex] = { x: newX, y: newY };
+
+        if (isClosed) {
+          // if moving the first point's handle
+          if (selectedIndex === 1) {
+            // Update the closing handle (last handle) to mirror the movement
+            const lastHandleIndex = newPoints.length - 1;
+            const anchorPoint = newPoints[0];
+            newPoints[lastHandleIndex] = {
+              x: anchorPoint.x - (newX - anchorPoint.x),
+              y: anchorPoint.y - (newY - anchorPoint.y),
+            };
+          } else if (selectedIndex === newPoints.length - 1) {
+            const anchorPoint = newPoints[0];
+            newPoints[1] = {
+              x: anchorPoint.x - (newX - anchorPoint.x),
+              y: anchorPoint.y - (newY - anchorPoint.y),
+            };
+          } else if (selectedIndex === lastAnchorIndex - 1) {
+            const anchorPoint = newPoints[lastAnchorIndex];
+            newPoints[lastAnchorIndex + 1] = {
+              x: anchorPoint.x + (anchorPoint.x - newX),
+              y: anchorPoint.y + (anchorPoint.y - newY),
+            };
+          } else if (selectedIndex === lastAnchorIndex + 1) {
+            const anchorPoint = newPoints[lastAnchorIndex];
+            newPoints[lastAnchorIndex - 1] = {
+              x: anchorPoint.x - (newX - anchorPoint.x),
+              y: anchorPoint.y - (newY - anchorPoint.y),
+            };
+          }
+        }
       }
-
-      setUpdatedPoints(newPoints);
-      setClickStart(point);
     }
+    setUpdatedPoints(newPoints);
+    setClickStart(point);
   };
 
-  const handleMouseUp = (event: Konva.KonvaEventObject<MouseEvent>) => {
+  const handleMouseUp = () => {
     setDragging(false);
     setPoints(updatedPoints);
     setClickStart(null);
   };
-
-  let anchorLines = [];
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -229,7 +299,8 @@ const PenToolApplication = () => {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
-  for (let i = 0; i < updatedPoints.length; i = i + 3) {
+  let anchorLines = [];
+  for (let i = 0; i < updatedPoints.length - 3; i = i + 3) {
     if (i - 1 < 0) {
       anchorLines.push(
         generateAnchorLine(updatedPoints[i], updatedPoints[i + 1])
@@ -238,10 +309,32 @@ const PenToolApplication = () => {
       anchorLines.push(
         generateAnchorLine(updatedPoints[i], updatedPoints[i - 1])
       );
-      anchorLines.push(
-        generateAnchorLine(updatedPoints[i], updatedPoints[i + 1])
-      );
+      if (i + 1 < updatedPoints.length) {
+        anchorLines.push(
+          generateAnchorLine(updatedPoints[i], updatedPoints[i + 1])
+        );
+      }
     }
+  }
+
+  // If closed, add closing segment visualization
+  if (isClosed && updatedPoints.length > 3) {
+    const lastAnchorIndex = Math.floor((updatedPoints.length - 4) / 3) * 3;
+
+    anchorLines.push(
+      generateAnchorLine(
+        updatedPoints[lastAnchorIndex],
+        updatedPoints[updatedPoints.length - 3],
+        true
+      )
+    );
+    anchorLines.push(
+      generateAnchorLine(
+        updatedPoints[0],
+        updatedPoints[updatedPoints.length - 2],
+        true
+      )
+    );
   }
 
   return (
@@ -282,6 +375,21 @@ function distanceBetweenPoints(point1: Vector2d, point2: Vector2d) {
 
 function isAnchorPoint(index: number) {
   return index % 3 === 0;
+}
+
+function debugPoints(points: Vector2d[]) {
+  console.log('Points structure:');
+  points.forEach((point, index) => {
+    let type = 'unknown';
+    if (isAnchorPoint(index)) {
+      type = 'ANCHOR';
+    } else if (index % 3 === 1) {
+      type = 'HANDLE_AFTER';
+    } else if (index % 3 === 2) {
+      type = 'HANDLE_BEFORE';
+    }
+    console.log(`Index ${index}: ${type} at (${point.x}, ${point.y})`);
+  });
 }
 
 export default PenToolApplication;
