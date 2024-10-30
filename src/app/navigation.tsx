@@ -42,30 +42,6 @@ export default function Navigation() {
           </li>
           <li className='before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
             <Link
-              className="text-2xl opacity-60 hover:opacity-100 transition-opacity"
-              href={'#side-projects'}
-            >
-              Side Projects
-            </Link>
-          </li>
-          <li className='ml-6 !mt-3 before:content-["🔗"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-7 before:-translate-y-1/2 relative before:text-2xl before:top-1/2'>
-            <Link
-              className="text-xl opacity-60 hover:opacity-100 hover:text-blue-400 transition-all"
-              href={'/notes'}
-            >
-              Notes
-            </Link>
-          </li>
-          <li className='ml-6 !mt-2 before:content-["🔗"] before:absolute before:-left-3 before:-translate-x-7 before:-translate-y-1/2 relative before:text-2xl before:text-gray-500 before:top-1/2'>
-            <Link
-              className="text-xl opacity-60 hover:opacity-100 hover:text-blue-200 transition-all"
-              href={'/tictactoe'}
-            >
-              Tic-Tac-Toe
-            </Link>
-          </li>
-          <li className='before:content-["↠"] before:text-gray-500 before:absolute before:-left-3 before:-translate-x-full before:-translate-y-1/2 relative before:text-2xl before:top-1/2 before:scale-y-125'>
-            <Link
               className="text-2xl opacity-60 hover:opacity-100 transition-opacity hover:text-yellow-100"
               href={'#tech-i-use'}
             >
