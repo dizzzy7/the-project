@@ -25,7 +25,10 @@ export default function Home() {
             <div className="my-auto py-8">
               <h1>Things I have built:</h1>
               <div className="sm:grid-cols-2 grid-cols-1 grid gap-2">
-                <Link href="/notes">
+                <Link className="relative" href="/notes">
+                  <span className="text-2xl drop-shadow-lg bg-black/20 px-3 py-2 rounded-lg font-bold inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2">
+                    Notes App
+                  </span>
                   <Image
                     className="w-full h-full object-cover object-left-top border"
                     src={'/NotesAppScreenshot.png'}
@@ -34,7 +37,7 @@ export default function Home() {
                     height={800}
                   />
                 </Link>
-                <Link href={'/tictactoe'}>
+                <Link className="relative" href={'/tictactoe'}>
                   <Image
                     src={'/TicTacToeAppScreenshot.png'}
                     className="w-full h-full object-cover border"
@@ -43,13 +46,27 @@ export default function Home() {
                     height={800}
                   />
                 </Link>
-                <Image
-                  className="w-full h-full object-cover border"
-                  src={'/CurrencyGraphAppScreenshot.png'}
-                  alt="Currency Graph App"
-                  width={800}
-                  height={800}
-                />
+                <Link className="relative" href="/currency-graph">
+                  <Image
+                    className="w-full h-full object-cover border"
+                    src={'/CurrencyGraphAppScreenshot.png'}
+                    alt="Currency Graph App"
+                    width={800}
+                    height={800}
+                  />
+                </Link>
+                <Link className="relative" href="/pen-tool">
+                  <span className="text-2xl drop-shadow-lg bg-black/20 px-3 py-2 rounded-lg font-bold inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2">
+                    Pen Tool Experiment
+                  </span>
+                  <Image
+                    className="w-full h-full object-cover border"
+                    src={'/PenToolAppScreenshot.png'}
+                    alt="Pen Tool App"
+                    width={800}
+                    height={800}
+                  />
+                </Link>
               </div>
             </div>
           </section>
