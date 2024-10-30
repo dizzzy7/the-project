@@ -145,36 +145,6 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section id="side-projects" className="flex min-h-screen my-10">
-            <div className="my-auto py-8">
-              <h1>Side Projects</h1>
-              <p>
-                I am creating projects with{' '}
-                <span className="text-cyan-300">React</span> in my free time and
-                showcase them here, since it&apos;s hard for me to show all the
-                things that I built for other companies.
-              </p>
-              <p>Here is a list with links:</p>
-              <ul className="-mt-3">
-                <li>
-                  <Link className="text-xl" href={'/notes'}>
-                    <Button className="bg-blue-800 hover:bg-blue-700 text-md w-40">
-                      Notes
-                    </Button>
-                  </Link>
-                  <span> - uses TipTap (Editor)</span>
-                </li>
-                <li>
-                  <Link className="text-xl opacity-80" href={'/tictactoe'}>
-                    <Button className="bg-blue-900 hover:bg-blue-700 text-md w-40">
-                      Tic-Tac-Toe{' '}
-                    </Button>
-                  </Link>
-                  <span className="!no-underline"> - uses React only</span>
-                </li>
-              </ul>
-            </div>
-          </section>
           <section id="tech-i-use" className="flex min-h-screen mb-10 pt-32">
             <div className="my-auto py-8">
               <h1 className="!font-bold">Tech I use</h1>
