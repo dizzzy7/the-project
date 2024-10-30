@@ -9,11 +9,9 @@ const PenToolApplication = () => {
   const [points, setPoints] = useState<Array<Vector2d>>([]);
   const [updatedPoints, setUpdatedPoints] = useState<Array<Vector2d>>([]);
   const [dragging, setDragging] = useState(false);
-
-  // selection contains, point to be moved (index, position), action
   const [pointSelection, setPointSelection] = useState<Set<number>>(new Set());
-
   const [clickStart, setClickStart] = useState<Vector2d | null>(null);
+  const [isNewPoint, setIsNewPoint] = useState(false);
 
   const generateAnchor = useCallback(
     (point: Vector2d, index: number) => {
@@ -109,6 +107,7 @@ const PenToolApplication = () => {
     // clear all selects if ctrl click on background
     if (event.target.className === undefined && event.evt.ctrlKey) {
       doSelection(null);
+      setIsNewPoint(false);
       // handle select of anchor and control points
     } else if (
       event.target.className === 'Rect' ||
@@ -116,6 +115,7 @@ const PenToolApplication = () => {
     ) {
       const pointIndex = Number(event.target.id());
       const isAnchor = isAnchorPoint(pointIndex);
+      setIsNewPoint(false);
       // if click on handle with ctrl, select it
       if (event.evt.ctrlKey) {
         doSelection(pointIndex, 'add');
@@ -132,21 +132,31 @@ const PenToolApplication = () => {
       // create a new point, if click is on canvas
     } else if (event.target.className === undefined) {
       // Stage was clicked -> set point
-      const newPoints = [
-        ...updatedPoints,
-        { x: point.x, y: point.y },
-        { x: point.x, y: point.y },
-      ];
+      let newPoints;
+      setIsNewPoint(true);
 
       // if this is not the initial point, add another one
-      if (updatedPoints.length !== 0) {
-        newPoints.push({ x: point.x, y: point.y });
-        doSelection(newPoints.length - 2, 'handles');
+      if (updatedPoints.length === 0) {
+        newPoints = [
+          { x: point.x, y: point.y },
+          { x: point.x, y: point.y },
+        ];
+        doSelection(1, 'reset');
       } else {
-        setPoints(newPoints);
-        doSelection(newPoints.length - 1, 'reset');
+        newPoints = [
+          ...updatedPoints,
+          { x: point.x, y: point.y },
+          { x: point.x, y: point.y },
+          { x: point.x, y: point.y },
+        ];
+        const newHandleIndices = new Set([
+          newPoints.length - 3,
+          newPoints.length - 1,
+        ]);
+        setPointSelection(newHandleIndices);
       }
 
+      setPoints(newPoints);
       setUpdatedPoints(newPoints);
     }
   };
@@ -157,6 +167,9 @@ const PenToolApplication = () => {
 
     if (!dragging || !point || pointSelection.size === 0 || !clickStart) return;
 
+    if (isNewPoint) {
+      const newPoints = updatedPoints.slice();
+    }
     if (
       pointSelection.size == 2 &&
       [...pointSelection].filter((pointIndex) => {
@@ -179,7 +192,7 @@ const PenToolApplication = () => {
         setUpdatedPoints(newPoints);
       }
     } else if (distanceBetweenPoints(clickStart, point) > 5) {
-      const newPoints = structuredClone(points);
+      const newPoints = structuredClone(updatedPoints);
 
       for (const item of pointSelection) {
         newPoints[item].x = newPoints[item].x + (point.x - clickStart.x);
@@ -187,6 +200,7 @@ const PenToolApplication = () => {
       }
 
       setUpdatedPoints(newPoints);
+      setClickStart(point);
     }
   };
 
