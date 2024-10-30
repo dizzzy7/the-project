@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Stage, Layer, Circle, Line, Rect } from 'react-konva';
 import Konva from 'konva';
 import { Vector2d } from 'konva/lib/types';
@@ -13,6 +13,7 @@ const PenToolApplication = () => {
   const [dragging, setDragging] = useState(false);
   const [pointSelection, setPointSelection] = useState<Set<number>>(new Set());
   const [clickStart, setClickStart] = useState<Vector2d | null>(null);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 600 }); // Default dimensions
   const [isNewPoint, setIsNewPoint] = useState(false);
 
   const generateAnchor = useCallback(
@@ -158,7 +159,6 @@ const PenToolApplication = () => {
         setPointSelection(newHandleIndices);
       }
 
-      setPoints(newPoints);
       setUpdatedPoints(newPoints);
     }
   };
@@ -214,6 +214,21 @@ const PenToolApplication = () => {
 
   let anchorLines = [];
 
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    updateDimensions();
+
+    window.addEventListener('resize', updateDimensions);
+
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
   for (let i = 0; i < updatedPoints.length; i = i + 3) {
     if (i - 1 < 0) {
       anchorLines.push(
@@ -231,8 +246,8 @@ const PenToolApplication = () => {
 
   return (
     <Stage
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={dimensions.width}
+      height={dimensions.height}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
