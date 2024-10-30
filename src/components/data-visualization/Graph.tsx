@@ -2,22 +2,37 @@
 
 import React from 'react';
 
-import { Serie } from '@nivo/line';
-import dynamic from 'next/dynamic';
-
-const ResponsiveLine = dynamic(
-  () => import('@nivo/line').then((m) => m.ResponsiveLine),
-  { ssr: false }
-);
+import { Serie, ResponsiveLine } from '@nivo/line';
 
 interface LineChartProps {
   data: Serie[];
+  ticksX?: String[];
+  ticksY?: String[];
 }
 
-const LineChart: React.FC<LineChartProps> = ({ data }) => {
+const LineChart: React.FC<LineChartProps> = ({ data, ticksX, ticksY }) => {
   return (
-    <div style={{ height: 400 }}>
+    <div style={{ height: 400 }} className="not-prose">
       <ResponsiveLine
+        lineWidth={3}
+        enableGridX={false}
+        enablePoints={false}
+        theme={{
+          crosshair: {
+            line: {
+              stroke: '#FFF',
+            },
+          },
+          text: {
+            fill: '#fff',
+          },
+          tooltip: {
+            container: {
+              color: 'black',
+              fontSize: 12,
+            },
+          },
+        }}
         data={data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
@@ -34,17 +49,36 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'transportation',
           legendOffset: 36,
           legendPosition: 'middle',
+          tickValues: ticksX || undefined,
+          format: (value) => {
+            if (typeof value === 'string') {
+              const firstVisibleDay = data[0].data[0].x
+                ?.toString()
+                .split('.')[0];
+              const firstVisibleDayAsNumber = Number(firstVisibleDay);
+              const extractedDay = value.split('.')[0];
+              const numberValue = Number(extractedDay);
+              if (numberValue % 10 === firstVisibleDayAsNumber % 10) {
+                const result = value.split('.');
+                result.pop();
+                return result.join('.');
+              } else {
+                return '';
+              }
+            } else {
+              return value;
+            }
+          },
         }}
         axisLeft={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'count',
           legendOffset: -40,
           legendPosition: 'middle',
+          tickValues: ticksY || undefined,
         }}
         pointSize={10}
         pointColor={{ theme: 'background' }}
@@ -71,7 +105,7 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
               {
                 on: 'hover',
                 style: {
-                  itemBackground: 'rgba(0, 0, 0, .03)',
+                  itemBackground: 'rgba(255, 255, 255, .03)',
                   itemOpacity: 1,
                 },
               },
