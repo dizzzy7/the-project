@@ -31,7 +31,7 @@ const CurrencyGraph = () => {
   const [currency, setCurrency] = useState('usd');
 
   const currentDate = useMemo(() => {
-    return new Date();
+    return subDays(new Date(), 1);
   }, []);
 
   const relevantDates = useMemo(() => {
@@ -68,26 +68,29 @@ const CurrencyGraph = () => {
     for (let index = 0; index < dataArray.length; index++) {
       const element = dataArray[index];
       if (element === undefined) {
-        return;
+        return false;
       }
     }
+    return true;
   }, [dataArray]);
 
-  let resultingCurrencyData: Serie;
+  let resultingCurrencyData: Serie | undefined;
+  let data;
 
-  let data = dataArray.map((data, index) => {
-    return {
-      x: format(relevantDates[index], 'dd.MM.yy'),
-      y: data.eur[currency],
+  if (dataArray.indexOf(undefined) === -1) {
+    data = dataArray.map((data, index) => {
+      return {
+        x: format(relevantDates[index], 'dd.MM.yy'),
+        y: data.eur[currency],
+      };
+    });
+
+    resultingCurrencyData = {
+      id: currency,
+      color: `hsl(${Math.random() * 100}, 70%, 50%)`,
+      data: data,
     };
-  });
-  resultingCurrencyData = {
-    id: currency,
-    color: `hsl(${Math.random() * 100}, 70%, 50%)`,
-    data: data,
-  };
-
-  const currencyData = resultingCurrencyData;
+  }
 
   return (
     <div className="prose prose-invert mx-auto">
@@ -136,7 +139,9 @@ const CurrencyGraph = () => {
         </SelectContent>
       </Select>
       {/* TODO: add proper ticks on the x and y axis */}
-      <Graph data={[currencyData]} />
+      {resultingCurrencyData !== undefined && (
+        <Graph data={[resultingCurrencyData]} />
+      )}
     </div>
   );
 };
