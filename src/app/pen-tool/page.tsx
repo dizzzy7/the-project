@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React, { useCallback, useState } from 'react';
 import { Stage, Layer, Circle, Line, Rect } from 'react-konva';
 import Konva from 'konva';
