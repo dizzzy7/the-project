@@ -94,7 +94,7 @@ const CurrencyGraph = () => {
 
   return (
     <div className="prose prose-invert mx-auto">
-      <h1 className="text-center">Currency</h1>
+      <h1 className="text-center mt-16">Currency Graph</h1>
       <div className="flex items-center space-x-3 justify-center">
         <Select disabled defaultValue={'EUR'}>
           <SelectTrigger className="w-[180px] text-black">
@@ -108,7 +108,6 @@ const CurrencyGraph = () => {
         <Select
           value={currency}
           onValueChange={(value) => {
-            console.log(value);
             setCurrency(value);
           }}
         >
