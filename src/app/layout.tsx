@@ -1,13 +1,14 @@
-'use client';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Metadata } from 'next';
 import '../globals.css';
 import { Inter } from 'next/font/google';
-import Provider from '@/components/SessionProvider';
+import ReactQueryClientProvider from '@/components/ReactQueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const queryClient = new QueryClient();
+export const metadata: Metadata = {
+  title: 'The Project',
+  description: 'This is the project.',
+};
 
 export default function RootLayout({
   children,
@@ -16,19 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <title>The Project</title>
-        <meta
-          name="description"
-          content="This is my project. It is made up of multiple projects."
-        />
-      </head>
       <body className={inter.className}>
-        <Provider>
-          <QueryClientProvider client={queryClient}>
-            {children}
-          </QueryClientProvider>
-        </Provider>
+        <ReactQueryClientProvider>
+          {children}
+        </ReactQueryClientProvider>
       </body>
     </html>
   );

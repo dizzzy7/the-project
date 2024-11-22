@@ -67,6 +67,17 @@ export default function Home() {
                     height={800}
                   />
                 </Link>
+                <Link href="/three-dimensional-page" className='text-blue-200 relative'>
+                  <span className="text-2xl drop-shadow-lg bg-black/20 px-3 py-2 rounded-lg font-bold inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2">
+                  Three dimensional page</span>
+                  <Image
+                    className="w-full h-full object-cover border"
+                    src={'/PenToolAppScreenshot.png'}
+                    alt="Pen Tool App"
+                    width={800}
+                    height={800}
+                  />
+                </Link>
               </div>
             </div>
           </section>
@@ -77,7 +88,7 @@ export default function Home() {
                 <span className="text-green-200 text-xl mr-2">
                   Hello there!
                 </span>{' '}
-                I am Sait. A developer based in Berlin, Germany.
+                On the internet I am known as Dizzzy. A developer based in Berlin, Germany.
               </p>
               <p>
                 Over the duration of my{' '}
@@ -267,7 +278,7 @@ export default function Home() {
                 <Link
                   className="text-white/70 hover:text-white/90 transition-all decoration-white/40 no-underline hover:decoration-white/100 text-xl overflow-wrap-any !whitespace-normal min-w-0 py-2"
                   target="_blank"
-                  href="https://www.behance.net/Sait1?locale=de_DE"
+                  href="https://www.behance.net/dizzzy9?locale=de_DE"
                 >
                   <span>🔗</span> Check out some of my art here <span>🔗</span>
                 </Link>
