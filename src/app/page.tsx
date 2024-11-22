@@ -67,17 +67,6 @@ export default function Home() {
                     height={800}
                   />
                 </Link>
-                <Link href="/three-dimensional-page" className='text-blue-200 relative'>
-                  <span className="text-2xl drop-shadow-lg bg-black/20 px-3 py-2 rounded-lg font-bold inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2">
-                  Three dimensional page</span>
-                  <Image
-                    className="w-full h-full object-cover border"
-                    src={'/PenToolAppScreenshot.png'}
-                    alt="Pen Tool App"
-                    width={800}
-                    height={800}
-                  />
-                </Link>
               </div>
             </div>
           </section>
