@@ -20,13 +20,25 @@ export default function Home() {
       <FixedGradientTop />
       <Container>
         <Navigation />
-        <div className="sm:px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch">
+        <div className="sm:px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch max-w-none">
           <section id="app-previews" className="flex min-h-screen my-10">
             <div className="my-auto py-8">
               <h1>Things I have built:</h1>
-              <div className="sm:grid-cols-2 grid-cols-1 grid gap-2">
+              <div className="sm:grid-cols-2 xl:grid-cols-3 grid-cols-1 grid gap-2">
+                <Link className="relative" href="/twitch-chat">
+                  <span className="text-2xl drop-shadow-lg bg-slate-800/90 px-3 py-2 rounded-lg tracking-wide inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200">
+                    Twitch Chat Reader
+                  </span>
+                  <Image
+                    className="w-full h-full object-cover object-left-top border"
+                    src={'/TwitchChatAppScreenshot.png'}
+                    alt="Twitch Chat App"
+                    width={800}
+                    height={800}
+                  />
+                </Link>
                 <Link className="relative" href="/notes">
-                  <span className="text-2xl drop-shadow-lg bg-black/20 px-3 py-2 rounded-lg font-bold inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2">
+                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide">
                     Notes App
                   </span>
                   <Image
@@ -56,7 +68,7 @@ export default function Home() {
                   />
                 </Link>
                 <Link className="relative" href="/pen-tool">
-                  <span className="text-2xl drop-shadow-lg bg-black/20 px-3 py-2 rounded-lg font-bold inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2">
+                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide">
                     Pen Tool Experiment
                   </span>
                   <Image
