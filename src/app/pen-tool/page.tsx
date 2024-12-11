@@ -12,7 +12,12 @@ const PenToolApplication = dynamic(() => import('@/components/pen-tool/pen-tool'
 });
 
 const PenToolPage = () => {
-  return (<PenToolApplication />);
+  return (
+    <div className='relative'>
+      <PenToolApplication />
+      <div className='absolute top-9 left-1/2 -translate-x-1/2 select-none pointer-events-none text-white text-2xl'>Click and drag anywhere!</div>
+    </div>
+  );
 };
 
 export default PenToolPage;
