@@ -25,59 +25,59 @@ export default function Home() {
             <div className="my-auto py-8">
               <h1>Things I have built:</h1>
               <div className="sm:grid-cols-2 xl:grid-cols-3 grid-cols-1 grid gap-2">
-                <Link className="relative" href="/twitch-chat">
-                  <span className="text-2xl drop-shadow-lg bg-slate-800/90 px-3 py-2 rounded-lg tracking-wide inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 text-center">
-                    Twitch Chat<br />Reader
-                  </span>
+                <Link className="relative group" href="/twitch-chat">
                   <Image
-                    className="w-full h-full object-cover object-left-top border border-slate-400 rounded-xl"
+                    className="w-full h-full object-cover object-left-top border border-slate-400 rounded-xl opacity-70 group-hover:opacity-100 transition-opacity"
                     src={'/TwitchChatAppScreenshot.png'}
                     alt="Twitch Chat App"
                     width={800}
                     height={800}
                   />
-                </Link>
-                <Link className="relative" href="/notes">
-                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide">
-                    Notes App
+                  <span className="text-2xl drop-shadow-lg bg-slate-800/90 px-3 py-2 rounded-lg tracking-wide inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 text-center">
+                    Twitch Chat<br />Reader
                   </span>
+                </Link>
+                <Link className="relative group" href="/notes">
                   <Image
-                    className="w-full h-full object-cover object-left-top border border-slate-400 rounded-xl"
+                    className="w-full h-full object-cover object-left-top border border-slate-400 rounded-xl opacity-70 group-hover:opacity-100"
                     src={'/NotesAppScreenshot.png'}
                     alt="Notes App"
                     width={800}
                     height={800}
                   />
+                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide">
+                    Notes App
+                  </span>
                 </Link>
-                <Link className="relative" href={'/tictactoe'}>
+                <Link className="relative group" href={'/tictactoe'}>
                   <Image
                     src={'/TicTacToeAppScreenshot.png'}
-                    className="w-full h-full object-cover border border-slate-400 rounded-xl"
+                    className="w-full h-full object-cover border border-slate-400 rounded-xl opacity-70 group-hover:opacity-100 transition-opacity"
                     alt="Tic Tac Toe App"
                     width={800}
                     height={800}
                   />
                 </Link>
-                <Link className="relative" href="/currency-graph">
+                <Link className="relative group" href="/currency-graph">
                   <Image
-                    className="w-full h-full object-cover border border-slate-400 rounded-xl"
+                    className="w-full h-full object-cover border border-slate-400 rounded-xl opacity-70 group-hover:opacity-100 transition-opacity"
                     src={'/CurrencyGraphAppScreenshot.png'}
                     alt="Currency Graph App"
                     width={800}
                     height={800}
                   />
                 </Link>
-                <Link className="relative" href="/pen-tool">
-                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide text-center">
-                    Pen Tool<br /> Experiment
-                  </span>
+                <Link className="relative group" href="/pen-tool">
                   <Image
-                    className="w-full h-full object-cover border border-slate-400 rounded-xl"
+                    className="w-full h-full object-cover border border-slate-400 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity"
                     src={'/PenToolAppScreenshot.png'}
                     alt="Pen Tool App"
                     width={800}
                     height={800}
                   />
+                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide text-center">
+                    Pen Tool<br /> Experiment
+                  </span>
                 </Link>
               </div>
             </div>
