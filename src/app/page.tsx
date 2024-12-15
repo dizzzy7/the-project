@@ -15,7 +15,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-800 text-slate-100 [&_*]:min-w-0">
+    <main className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900  text-slate-100 [&_*]:min-w-0">
       <FixedGradientBottom />
       <FixedGradientTop />
       <Container>
@@ -82,7 +82,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section id="about-me" className="flex min-h-screen my-10">
+          <section id="about-me" className="flex min-h-screen my-10 prose prose-invert">
             <div className="my-auto py-8">
               <h1>About me.</h1>
               <p>
@@ -109,7 +109,7 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section id="experience" className="flex min-h-screen my-10">
+          <section id="experience" className="flex min-h-screen my-10 prose prose-invert">
             <div className="my-auto py-8">
               <h1>Experience</h1>
               <p>
@@ -174,7 +174,7 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section id="tech-i-use" className="flex min-h-screen mb-10 pt-32">
+          <section id="tech-i-use" className="flex min-h-screen mb-10 pt-32 prose prose-invert">
             <div className="my-auto py-8">
               <h1 className="!font-bold">Tech I use</h1>
               <h2 className="opacity-90 font-medium">Javascript Libraries: </h2>

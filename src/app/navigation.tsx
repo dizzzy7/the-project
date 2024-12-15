@@ -8,7 +8,7 @@ import GithubLogo from '../../public/GithubLogo.svg';
 export default function Navigation() {
   const [isNavigationVisible, setIsNavigationVisible] = useState(false);
   return (
-    <div className="border-l border-r border-slate-500 px-8 lg:px-0">
+    <div className="border-l border-r border-slate-500 px-8 lg:px-0 bg-gray-800">
       <nav className="flex lg:flex-col lg:h-full lg:min-h-screen align-middle fixed top-0 left-0 right-0 lg:left-auto lg:right-auto px-5 lg:w-auto justify-between z-10">
         <div>
           <h1 className="pt-6 lg:pt-16 px-2 text-3xl lg:text-4xl font-bold tracking-wide relative bg-gradient-radial from-gray-800/90 via-gray-800/90 to-gray-800/5 shadow-gray-800 shadow-2xl rounded-lg">
@@ -70,7 +70,7 @@ export default function Navigation() {
         </div>
 
         <Link
-          className="pl-2 relative pb-5 lg:flex items-center gap-3 text-lg tracking-wider font-light hidden"
+          className="relative px-4 py-4 rounded-lg mb-4 lg:flex items-center gap-3 text-lg tracking-wider font-light hidden bg-slate-700/40 hover:bg-slate-700/90 transition-colors duration-150"
           href={'https://github.com/dizzzy7'}
         >
           <div className="bg-gradient-to-b from-gray-300 via-gray-500 from-40% via-90% to-gray-600 p-2 inline-block rounded-lg">
