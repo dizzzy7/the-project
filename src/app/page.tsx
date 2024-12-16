@@ -189,8 +189,8 @@ export default function Home() {
                       <ReactBadge />
                     </IconBadge>
                     <IconBadge
-                      className="text-green-300 border-green-300/10 bg-green-300/5 opacity-50 drop-shadow"
-                      text={'Vue 2'}
+                      className="text-green-300 border-green-300 bg-green-300/5 drop-shadow"
+                      text={'Vue'}
                     >
                       <VueBadge />
                     </IconBadge>
