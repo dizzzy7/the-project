@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 
-import '@/globals.css';
+import '@/globals.scss';
 
 import NoteList, { Note } from '@/components/note/NoteList';
 import NoteEditor from '@/components/note/NoteEditor';

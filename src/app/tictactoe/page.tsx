@@ -1,4 +1,4 @@
-import '@/globals.css';
+import '@/globals.scss';
 import Link from 'next/link';
 import TicTacToeGame from './TicTacToeGame';
 import { Metadata } from 'next';
