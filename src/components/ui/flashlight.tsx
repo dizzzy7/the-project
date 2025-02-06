@@ -3,45 +3,36 @@
 import { useEffect, useRef, useState } from "react";
 import colors from 'tailwindcss/colors'
 
-
-// const mouseMoveHandler = (e) => {
-//   const light = document.querySelector(".cursor-light");
-//   light.style.setProperty("--x", `${e.clientX}px`);
-//   light.style.setProperty("--y", `${e.clientY}px`);
-// }
+import useMousePosition from "../hooks/useMousePosition";
+import { useAtom } from "jotai/react";
+import { mousePosAtom } from "@/atoms";
 
 const Flashlight = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
 
   const flashlightRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  const mousePosBackup = useMousePosition();
+  const [mousePos,] = useAtom(mousePosAtom);
 
-    // document.addEventListener("mousemove",);
-    //update component that is pointed to by ref
-    if (flashlightRef.current !== null) {
-      // flashlightRef.current.
-    }
-
-  }, [])
-
-  //
+  // IDEA: i want to create an animation on the mask-image
+  // for this to work i need to probably animate the radial gradient values over time
 
   return (
     <div
       data-component="flashlight"
-      className={'fixed inset-0 bg-white transition-all'}
+      className={'fixed inset-0 bg-white transition-all duration-500'}
       ref={flashlightRef}
       style={{
-        '--flashlight-x': '100px',
-        '--flashlight-y': '100px',
-        background: isEnabled ? colors.slate[800] : 'transparent',
-        maskImage: `radial-gradient(circle 550px at var(--flashlight-x) var(--flashlight-y), transparent, ${colors.slate[800]}4f)`
+        '--flashlight-x': mousePos !== null ? mousePos.x + 'px' : 0,
+        '--flashlight-y': mousePos !== null ? mousePos.y + 'px' : 0,
+        background: isEnabled && mousePos !== null ? `${colors.slate[800]}aa` : `${colors.slate[800]}dd`,
+        maskImage: `radial-gradient(circle 550px at var(--flashlight-x) var(--flashlight-y), transparent, ${colors.slate[800]})`,
+        opacity: isEnabled ? 1 : 0
+
       } as React.CSSProperties}
-      onMouseMoveCapture={(e) => {
+      onMouseEnter={(e) => {
         setIsEnabled(true)
-        flashlightRef.current?.style.setProperty('--flashlight-x', e.clientX + 'px');
-        flashlightRef.current?.style.setProperty('--flashlight-y', e.clientY + 'px');
       }}
       onMouseLeave={(e) => {
         setIsEnabled(false)
