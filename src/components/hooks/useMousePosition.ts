@@ -15,16 +15,26 @@ const useMousePosition = () => {
         setMousePos({
           x: event.clientX,
           y: event.clientY,
+          isTracked: true,
+        });
+      };
+
+      const handleMouseLeave = (event: MouseEvent) => {
+        setMousePos({
+          x: event.clientX,
+          y: event.clientY,
+          isTracked: false,
         });
       };
 
       window.addEventListener('mousemove', handleMouseMove);
-      console.log('registering event');
+      window.addEventListener('mouseout', handleMouseLeave);
       isHandlerRegistered = true;
 
       return () => {
+        setMousePos({ ...mousePos, isTracked: false });
         window.removeEventListener('mousemove', handleMouseMove);
-        console.log('unregistering event');
+        window.removeEventListener('mouseout', handleMouseLeave);
         isHandlerRegistered = false;
       };
     }
