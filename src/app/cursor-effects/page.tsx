@@ -1,5 +1,5 @@
 
-import Flashlight from '@/components/ui/flashlight';
+import MaskImageFlashlight from '@/components/ui/masks/mask-image-flashlight';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -37,18 +37,8 @@ const CursorEffectsPage = () => {
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
         </div>
-        <div className='my-4'>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde excepturi dicta quaerat eum maiores. Deserunt, ex. Incidunt assumenda dignissimos nostrum provident praesentium iusto, ratione dicta ducimus hic laboriosam, perspiciatis laborum!</p>
-        </div>
       </section>
-      <Flashlight />
+      <MaskImageFlashlight />
     </main>
   );
 };
