@@ -10,6 +10,8 @@ export default function DataVisuals() {
 
   const [isSelecting, setIsSelecting] = useState<Boolean>();
 
+  const [isCanvasReady, setIsCanvasReady] = useState<Boolean>(false);
+
   const [canvasItems, setCanvasItems] = useState<CanvasItem[]>([
     {
       x: 10,
@@ -35,6 +37,9 @@ export default function DataVisuals() {
   useEffect(() => {
     const theCanvas = canvas.current;
     if (theCanvas !== null) {
+
+      setIsCanvasReady(true);
+
       const ctx = theCanvas.getContext('2d');
       if (ctx !== null && canvasItems !== null) {
         // clear canvas
@@ -64,17 +69,23 @@ export default function DataVisuals() {
           );
         });
       }
+
     }
 
-    // // This will move all rectangles one unit to the right every 100ms
-    // setTimeout(() => {
-    //   setCanvasItems(
-    //     canvasItems.map((canvasItem) => ({
-    //       ...canvasItem,
-    //       x: canvasItem.x + 1,
-    //     }))
-    //   );
-    // }, 100);
+    // This will move all rectangles one unit to the right every 100ms
+    setTimeout(() => {
+      if (canvas.current !== null) {
+        setCanvasItems(
+          canvasItems.map((canvasItem) => {
+            const canvasCurrent = canvas.current as HTMLCanvasElement;
+            return ({
+              ...canvasItem,
+              x: canvasItem.x > canvasCurrent.width ? 0 - canvasItem.width : canvasItem.x + 1,
+            })
+          })
+        )
+      }
+    }, 10);
   }, [canvas, canvasItems]);
 
   return (
@@ -92,16 +103,8 @@ export default function DataVisuals() {
             Canvas here
             <canvas
               ref={canvas}
-              className="bg-gray-800 w-full"
+              className={`bg-gray-800 w-full transition-all ${isCanvasReady ? ' opacity-1' : 'opacity-0'}`}
               onClick={(e) => {
-                // add a point for the bezier curve
-                // - if first point is set already, start adding a bezierpoint
-                // - else set a regular point
-                if (points.length === 0) {
-                  // setPoints()
-                } else if (points.length > 0) {
-                }
-                console.log(e);
               }}
               onDrag={(e) => {
                 // check if selected
