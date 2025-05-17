@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const PenToolSvgPage = () => {
   return (
-    <div className='bg-slate-700 h-screen text-white'>
+    <div className='bg-slate-500 h-screen text-white'>
       <PenToolSvg />
     </div>
   );

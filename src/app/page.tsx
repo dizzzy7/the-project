@@ -89,7 +89,7 @@ export default function Home() {
                 <span className="text-green-200 text-xl mr-2">
                   Hello there!
                 </span>{' '}
-                On the internet I am known as Dizzzy. A developer based in Berlin, Germany.
+                I am Sait.
               </p>
               <p>
                 Over the duration of my{' '}

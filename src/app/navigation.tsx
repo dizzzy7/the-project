@@ -12,7 +12,7 @@ export default function Navigation() {
       <nav className="flex lg:flex-col lg:h-full lg:min-h-screen align-middle fixed top-0 left-0 right-0 lg:left-auto lg:right-auto px-5 lg:w-auto justify-between z-10">
         <div>
           <h1 className="pt-6 lg:pt-16 px-2 text-3xl lg:text-4xl font-bold tracking-wide relative bg-gradient-radial from-gray-800/90 via-gray-800/90 to-gray-800/5 shadow-gray-800 shadow-2xl rounded-lg">
-            Dizzzy<span className="text-red-300">&apos;</span>s<br />
+            Sait<span className="text-red-300">&apos;</span>s<br />
             <span className="font-normal tracking-normal">Website</span>
           </h1>
         </div>

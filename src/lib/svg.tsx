@@ -1,8 +1,9 @@
-import { pathsAtom } from '@/atoms';
+import { pathsAtom, selectedPointsAtom } from '@/atoms';
 import { Path, PathPoint, Point } from '@/components/pen-tool/types';
 import { useAtom } from 'jotai';
 
 export function getPathData(points: PathPoint[]): string {
+
   if (points.length === 0) return '';
 
   let pathData = '';
@@ -16,15 +17,16 @@ export function getPathData(points: PathPoint[]): string {
         pathData += ` L ${point.x} ${point.y}`;
         break;
       case 'C':
-        if (point.controlPoints) {
-          pathData += ` C ${point.controlPoints.x1} ${point.controlPoints.y1}, ${point.controlPoints.x2} ${point.controlPoints.y2}, ${point.x} ${point.y}`;
+        if (point.c1 && point.c2) {
+          pathData += ` C ${point.c1?.x} ${point.c1?.y}, ${point.c2?.x} ${point.c2?.y}, ${point.x} ${point.y}`;
         }
         break;
       case 'Z':
         pathData += ' Z';
         break;
       default:
-        throw new Error(`Unsupported path command: ${point.type}`);
+        throw new Error(`Unsupported path command: ${point}`);
+        break;
     }
   });
 

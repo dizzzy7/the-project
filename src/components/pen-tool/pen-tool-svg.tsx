@@ -7,6 +7,9 @@ import { useAtom } from "jotai/react";
 import { selectedPointsAtom, isDrawingAtom, pathsAtom } from "@/atoms";
 import { getMousePositionSVG } from "@/lib/utils";
 import { addPointToPath, getPathData, createNewPath, updatePointOnPath } from "@/lib/svg";
+import ControlPoints from "./control-points";
+import Path from "./path";
+import BezierLines from "./bezier-lines";
 
 
 /**
@@ -106,29 +109,9 @@ const PenToolSVGApplication: React.FC = () => {
       {paths.map((path, index) => {
         return (
           <g key={index}>
-            <path
-              d={getPathData(path)}
-              stroke="#111"
-              fill="none"
-              strokeWidth={1.8}
-            />
-            {
-              path.map((point, index) => {
-                return (
-                  <g key={`anchor-${index}`}>
-                    <circle
-                      type=""
-                      cx={point.x}
-                      cy={point.y}
-                      r="3"
-                      fill={selectedPoints[1].has(index) ? "lightblue" : 'transparent'}
-                      stroke="lightblue"
-                      strokeWidth={2}
-                    />
-                  </g>
-                )
-              })
-            }
+            <Path pathData={getPathData(path)} />
+            <BezierLines path={path} />
+            <ControlPoints path={path} />
           </g>
         )
       }
