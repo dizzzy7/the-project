@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import createNextIntlPlugin from 'next-intl/plugin';
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   webpack: (config) => {
     config.module.rules.push({
       test: /.svg$/,
@@ -26,4 +28,5 @@ const nextConfig = {
   transpilePackages: ['three'],
 };
 
-module.exports = nextConfig;
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);
