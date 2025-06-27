@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import '../globals.scss';
+import '@/globals.scss';
 import { Inter } from 'next/font/google';
 import ReactQueryClientProvider from '@/components/ReactQueryClientProvider';
 

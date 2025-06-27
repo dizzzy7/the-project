@@ -5,15 +5,18 @@ import FixedGradientBottom from '@/components/visual-components/fixed-gradient-b
 import Navigation from './navigation';
 import Container from './container';
 import { IconBadge } from '@/components/ui/icon-badge';
-import ReactBadge from '../../public/ReactBadge.svg';
-import VueBadge from '../../public/VueBadge.svg';
-import AlpineBadge from '../../public/AlpineBadge.svg';
-import AffinityPhotoLogo from '../../public/AffinityPhotoLogo.svg';
-import ArchiveIcon from '../../public/ArchiveIcon.svg';
-import BlenderLogo from '../../public/BlenderLogo.svg';
+import ReactBadge from '@public/ReactBadge.svg';
+import VueBadge from '@public/VueBadge.svg';
+import AlpineBadge from '@public/AlpineBadge.svg';
+import AffinityPhotoLogo from '@public/AffinityPhotoLogo.svg';
+import ArchiveIcon from '@public/ArchiveIcon.svg';
+import BlenderLogo from '@public/BlenderLogo.svg';
 import Image from 'next/image';
+import { useTransition } from 'react';
+
 
 export default function Home() {
+
   return (
     <main className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900  text-slate-100 [&_*]:min-w-0">
       <FixedGradientBottom />

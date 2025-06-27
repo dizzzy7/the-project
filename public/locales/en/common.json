@@ -1,3 +1,6 @@
 {
-  "greeting": "Hello!"
+  "projectOverview": "Things I have built:",
+  "greeting": "Hello!",
+  "aboutMeHeading": "About Me.",
+  "aboutMeText": "Hello there! I am Sait. Over the duration of my 3 years of studies I have been working as a web developer (20h/week).  I switched to working full time as a frontend developer in 07.2022 and collected 17 months of frontend development experience with a great team of seasoned developers and engineers."
 }

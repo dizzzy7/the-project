@@ -38,7 +38,7 @@ const useMousePosition = () => {
         isHandlerRegistered = false;
       };
     }
-  }, []);
+  }, [mousePos]);
 
   return mousePos;
 };

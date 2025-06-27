@@ -1,7 +1,6 @@
-import dynamic from 'next/dynamic';
+'use client'
 
-const ThreeDRoomScene = dynamic(() => import('@/components/three/ThreeDRoomScene'), { ssr: false })
-
+import ThreeDRoomScene from "@/components/three/ThreeDRoomScene";
 
 const ThreeDRoom = () => {
 
