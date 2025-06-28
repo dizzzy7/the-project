@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useQueries, useQuery } from '@tanstack/react-query';
-import Graph from '@/components/data-visualization/Graph';
+import LineChart from '@/components/data-visualization/Graph';
 import { Datum, Serie } from '@nivo/line';
 import { format, getDaysInMonth, subDays } from 'date-fns';
 
@@ -29,18 +29,35 @@ import {
 
 const CurrencyGraph = () => {
   const [currency, setCurrency] = useState('usd');
+  const [timeSpan, setTimeSpan] = useState('month');
 
   const currentDate = useMemo(() => {
     return subDays(new Date(), 1);
   }, []);
 
   const relevantDates = useMemo(() => {
-    const dates = Array.from({ length: 31 }, (_, i) => {
-      return subDays(currentDate, i);
-    });
+    let dates;
+
+    if (timeSpan === '3month') {
+      dates = Array.from({ length: 92 }, (_, i) => {
+        return subDays(currentDate, i);
+      });
+    } else if (timeSpan === '6month') {
+      dates = Array.from({ length: 183 }, (_, i) => {
+        return subDays(currentDate, i);
+      });
+    } else if (timeSpan === 'year') {
+      dates = Array.from({ length: 365 }, (_, i) => {
+        return subDays(currentDate, i);
+      });
+    } else {
+      dates = Array.from({ length: 31 }, (_, i) => {
+        return subDays(currentDate, i);
+      });
+    }
 
     return dates.reverse();
-  }, [currentDate]);
+  }, [currentDate, timeSpan]);
 
   const queries = useMemo(() => {
     return relevantDates.map((relevantDate, index) => {
@@ -49,8 +66,7 @@ const CurrencyGraph = () => {
         queryKey: [`currency-${currency}-${relevantDateFormatted}`],
         queryFn: async () => {
           const response = await fetch(
-            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${
-              index === 0 ? 'latest' : relevantDateFormatted
+            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${index === 0 ? 'latest' : relevantDateFormatted
             }/v1/currencies/eur.json`
           );
           return await response.json();
@@ -123,23 +139,33 @@ const CurrencyGraph = () => {
         </Select>
       </div>
       <div className="text-white text-center">
-        {/* Current Value: {graphData ? graphData.eur.usd : 'Hi'} */}
       </div>
 
-      <Select defaultValue="month">
-        <SelectTrigger className="w-[180px] text-black">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="month">Past Month</SelectItem>
-          <SelectItem value="3month">Past 3 Months</SelectItem>
-          <SelectItem value="6month">Past 6 Months</SelectItem>
-          <SelectItem value="year">Past Year</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className='flex items-center mt-4 justify-center'>
+        <span className='mr-4'>Timespan:</span>
+        <Select
+          value={timeSpan}
+          defaultValue="month"
+          onValueChange={(value) => {
+            setTimeSpan(value)
+          }}
+        >
+          <SelectTrigger className="w-[180px] text-black">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="month">Past Month</SelectItem>
+            <SelectItem value="3month">Past 3 Months</SelectItem>
+            <SelectItem value="6month">Past 6 Months</SelectItem>
+            <SelectItem value="year">Past Year</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       {/* TODO: add proper ticks on the x and y axis */}
       {resultingCurrencyData !== undefined && (
-        <Graph data={[resultingCurrencyData]} />
+        <LineChart
+          data={[resultingCurrencyData]}
+        />
       )}
     </div>
   );

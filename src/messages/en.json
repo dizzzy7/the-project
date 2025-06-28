@@ -1,0 +1,33 @@
+{
+  "or": "or",
+  "greeting": "Hello!",
+  "projectOverview": "Things I have built:",
+  "aboutMeHeading": "About Me.",
+  "aboutMeText": "Hello there! I am Sait. Over the duration of my 3 years of studies I have been working as a web developer (20h/week).  I switched to working full time as a frontend developer in 07.2022 and collected 17 months of frontend development experience with a great team of seasoned developers and engineers.",
+  "experienceHeading": "Experience",
+  "experienceText": [
+    "I have worked on several websites and projects. Here are the ones that I can publicly list:",
+    "In my latest projects I have been using React + Typescript. I implemented API integrations to the frontend with Tanstack Query, created a graphical application with konva.js, and solved several problems using different combinations of libraries.  In my early career I built websites for small companies. I implemented designs and ideas in plain HTML, CSS, JS using Wordpress in the backend."
+  ],
+  "techHeading": "Tech I use",
+  "techList": [
+    "Frontend frameworks:",
+    "Tanstack Query - library to manage fetched data",
+    "shadcn/ui - component library",
+    "konva.js - canvas library for 2D graphics apps"
+  ],
+  "graphicToolsList": [
+    "Used to work with Adobe Products and transitioned to Affinity Apps",
+    "Figma - for web designs, from components to full pages.",
+    "For 3D I use blender."
+  ],
+  "codingToolsHeading": "For Coding",
+  "codingToolsList": [
+    "IntelliJ IDEA, VSCode, Neovim - Any IDE will do",
+    "Git + Lazygit - Version Control + TUI App"
+  ],
+  "backendFrameworksList": [
+    "Next.js, Node.js + Express.js - will probably build my first full backend with Node.js + Express.js",
+    "Java Spring Boot - will probably rebuild what I will have built in Node.js + Express.js in this tech stack as a learning."
+  ]
+}

@@ -14,8 +14,11 @@ import BlenderLogo from '@public/BlenderLogo.svg';
 import Image from 'next/image';
 import { useTransition } from 'react';
 
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function Home() {
+  const locale = useLocale();
+  const t = useTranslations();
 
   return (
     <main className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900  text-slate-100 [&_*]:min-w-0">
@@ -26,7 +29,7 @@ export default function Home() {
         <div className="sm:px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch max-w-none">
           <section id="app-previews" className="flex min-h-screen my-10">
             <div className="my-auto py-8">
-              <h1>Things I have built:</h1>
+              <h1>{t('projectOverview')}</h1>
               <div className="sm:grid-cols-2 xl:grid-cols-3 grid-cols-1 grid gap-2">
                 <Link className="relative group" href="/twitch-chat">
                   <Image
