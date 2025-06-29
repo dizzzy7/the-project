@@ -1,33 +1,34 @@
 {
   "or": "or",
-  "greeting": "Hello!",
   "projectOverview": "Things I have built:",
   "aboutMeHeading": "About Me.",
-  "aboutMeText": "Hello there! I am Sait. Over the duration of my 3 years of studies I have been working as a web developer (20h/week).  I switched to working full time as a frontend developer in 07.2022 and collected 17 months of frontend development experience with a great team of seasoned developers and engineers.",
+  "aboutMeText": "<p><green200>Hello there!</green200> I am Sait.</p><p>Over the duration of my <green300>3 years</green300> of studies <green300>I have been working as a web developer</green300> <gray400>(20h/week)</gray400>.</p><p>I switched to working full time as a frontend developer in <cyan300>07.2022</cyan300> and collected <cyan300u>17 months of frontend development experience</cyan300u> with a great team of seasoned developers and engineers.</p>",
   "experienceHeading": "Experience",
-  "experienceText": [
-    "I have worked on several websites and projects. Here are the ones that I can publicly list:",
-    "In my latest projects I have been using React + Typescript. I implemented API integrations to the frontend with Tanstack Query, created a graphical application with konva.js, and solved several problems using different combinations of libraries.  In my early career I built websites for small companies. I implemented designs and ideas in plain HTML, CSS, JS using Wordpress in the backend."
-  ],
+  "experienceText": {
+    "firstParagraph": "<p>I have worked on several websites and projects. Here are the ones that I can publicly list:</p>",
+    "secondParagraph": "<p>In my latest projects I have been using <cyan200>React + Typescript.</cyan200> I implemented API integrations to the frontend with <white>Tanstack Query</white>, created a graphical application with <cyan200>konva.js</cyan200>, and solved several problems using different combinations of libraries.</p><p>In my early career I built websites for small companies. I implemented designs and ideas in plain HTML, CSS, JS using Wordpress in the backend.</p>"
+  },
   "techHeading": "Tech I use",
-  "techList": [
-    "Frontend frameworks:",
-    "Tanstack Query - library to manage fetched data",
-    "shadcn/ui - component library",
-    "konva.js - canvas library for 2D graphics apps"
-  ],
-  "graphicToolsList": [
-    "Used to work with Adobe Products and transitioned to Affinity Apps",
-    "Figma - for web designs, from components to full pages.",
-    "For 3D I use blender."
-  ],
+  "techList": {
+    "firstItem": "Frontend frameworks:",
+    "secondItem": "<strong>Tanstack Query</strong> - library to manage fetched data",
+    "thirdItem": "<strong>shadcn/ui</strong> - component library",
+    "fourthItem": "<strong>konva.js</strong> - canvas library for 2D graphics apps"
+  },
+  "graphicsToolsHeading": "Graphics Applications",
+  "graphicToolsList": {
+    "firstItem": "Used to work with Adobe Products and transitioned to Affinity Apps",
+    "secondItem": "<strong>Figma</strong> - for web designs, from components to full pages.",
+    "thirdItem": "For 3D I use blender."
+  },
+  "checkOutMyArt": "Check out some of my art here",
   "codingToolsHeading": "For Coding",
-  "codingToolsList": [
-    "IntelliJ IDEA, VSCode, Neovim - Any IDE will do",
-    "Git + Lazygit - Version Control + TUI App"
-  ],
-  "backendFrameworksList": [
-    "Next.js, Node.js + Express.js - will probably build my first full backend with Node.js + Express.js",
-    "Java Spring Boot - will probably rebuild what I will have built in Node.js + Express.js in this tech stack as a learning."
-  ]
+  "codingToolsList": {
+    "firstItem": "<strong>IntelliJ IDEA, VSCode, Neovim - Any IDE will do</strong>",
+    "secondItem": "<strong>Git + Lazygit - Version Control + TUI App</strong>"
+  },
+  "backendFrameworksList": {
+    "firstItem": "<strong>Next.js, Node.js + Express.js</strong> - First Choice",
+    "secondItem": "<strong>Java Spring Boot & Golang</strong> - Second Choice and for learning purposes"
+  }
 }

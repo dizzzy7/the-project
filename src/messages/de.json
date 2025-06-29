@@ -1,33 +1,34 @@
 {
   "or": "oder",
-  "greeting": "Hallöchen!",
   "projectOverview": "Projekte, die ich gebaut habe:",
   "aboutMeHeading": "Über mich.",
-  "aboutMeText": "Hallo! Ich bin Sait. Während meiner 3-jährigen Studienzeit habe ich als Webentwickler (20h/Woche) gearbeitet. Von Juli 2022 habe ich 17 Monate Vollzeit als Frontend-Entwickler gearbeitet. Ich konnte Erfahrung in der Frontend-Entwicklung mit einem großartigen Team mit erfahrenen Entwicklern und Ingenieuren sammeln.",
+  "aboutMeText": "<p><green200>Hallöchen!</green200> Ich bin Sait.</p><p>Während meiner <green300>3-jährigen</green300> Studienzeit <green300>habe ich als Webentwickler</green300> <gray400>(20h/Woche)</gray400> gearbeitet.</p><p>Ich bin <cyan300>Juli 2022</cyan300> auf die Frontend-Entwicklung umgestiegen, und habe <cyan300u>17 Monate Vollzeit Erfahrung in der Frontend-Entwicklung</cyan300u> mit einem großartigen Team mit erfahrenen Entwicklern und Ingenieuren sammeln.</p>",
   "experienceHeading": "Erfahrung",
-  "experienceText": [
-    "Ich habe an mehreren Webseiten und Projekten gearbeitet. Hier sind die, die ich öffentlich auflisten kann:",
-    "In meinen letzten Projekten habe ich React + Typescript verwendet. Ich habe API-Integrationen in das Frontend mit Tanstack Query implementiert, eine grafische Anwendung mit konva.js erstellt und verschiedene Probleme mit unterschiedlichen Bibliothekskombinationen gelöst. Zu Beginn meiner Karriere habe ich Webseiten für kleine Unternehmen erstellt. Ich habe Designs und Ideen in reinem HTML, CSS, JS unter Verwendung von Wordpress im Backend umgesetzt."
-  ],
+  "experienceText": {
+    "firstParagraph": "Ich habe an mehreren Webseiten und Projekten gearbeitet. Hier sind die, die ich öffentlich auflisten kann:",
+    "secondParagraph": "<p>In meinen letzten Projekten habe ich <cyan200>React + Typescript</cyan200> verwendet. Ich habe API-Integrationen in das Frontend mit <white>Tanstack Query</white> implementiert, eine grafische Anwendung mit <cyan200>konva.js</cyan200> erstellt und verschiedene Probleme mit unterschiedlichen Bibliothekskombinationen gelöst.</p><p>Zu Beginn meiner Karriere habe ich Webseiten für kleine Unternehmen erstellt. Ich habe Designs und Ideen in reinem <white>HTML, CSS, JS</white> unter Verwendung von Wordpress im Backend umgesetzt.</p>"
+  },
   "techHeading": "Technologien, die ich benutze",
-  "techList": [
-    "Frontend-Frameworks:",
-    "Tanstack Query - Bibliothek zur Verwaltung von abgerufenen Daten",
-    "shadcn/ui - Komponentenbibliothek",
-    "konva.js - Canvas-Bibliothek für 2D-Grafikanwendungen"
-  ],
-  "graphicToolsList": [
-    "Früher habe ich mit Adobe-Produkten gearbeitet und bin zu Affinity-Apps gewechselt.",
-    "Figma - für Webdesigns, von Komponenten bis zu kompletten Seiten.",
-    "Für 3D benutze ich Blender."
-  ],
+  "techList": {
+    "firstItem": "Frontend-Frameworks:",
+    "secondItem": "<strong>Tanstack Query</strong> - Bibliothek zur Verwaltung von abgerufenen Daten",
+    "thirdItem": "<strong>shadcn/ui</strong> - Komponentenbibliothek",
+    "fourthItem": "<strong>konva.js</strong> - Canvas-Bibliothek für 2D-Grafikanwendungen"
+  },
+  "graphicsToolsHeading": "Graphics Applications",
+  "graphicToolsList": {
+    "firstItem": "Früher habe ich mit Adobe-Produkten gearbeitet und bin zu Affinity-Apps gewechselt.",
+    "secondItem": "<strong>Figma</strong> - für Webdesigns, von Komponenten bis zu kompletten Seiten.",
+    "thirdItem": "Für 3D benutze ich Blender."
+  },
+  "checkOutMyArt": "Hier kriegt ihr Einblicke in meine Kunst",
   "codingToolsHeading": "Für die Programmierung",
-  "codingToolsList": [
-    "IntelliJ IDEA, VSCode, Neovim - Jede IDE passt mir",
-    "Git + Lazygit - Versionskontrolle + TUI-App"
-  ],
-  "backendFrameworksList": [
-    "Next.js, Node.js + Express.js - werde wahrscheinlich mein erstes vollständiges Backend mit Node.js + Express.js bauen",
-    "Java Spring Boot - werde wahrscheinlich das, was ich in Node.js + Express.js gebaut habe, in diesem Tech-Stack neu erstellen, um zu lernen."
-  ]
+  "codingToolsList": {
+    "firstItem": "<strong>IntelliJ IDEA, VSCode, Neovim</strong> - Jede IDE passt mir",
+    "secondItem": "<strong>Git + Lazygit</strong> - Versionskontrolle + TUI-App"
+  },
+  "backendFrameworksList": {
+    "firstItem": "<strong>Next.js, Node.js + Express.js</strong> - Erste Wahl",
+    "secondItem": "<strong>Java Spring Boot & Golang</strong> - Zweite Wahl und zu Lernzwecken"
+  }
 }

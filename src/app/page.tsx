@@ -12,9 +12,14 @@ import AffinityPhotoLogo from '@public/AffinityPhotoLogo.svg';
 import ArchiveIcon from '@public/ArchiveIcon.svg';
 import BlenderLogo from '@public/BlenderLogo.svg';
 import Image from 'next/image';
-import { useTransition } from 'react';
+import { ReactNode, useTransition } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
+
+// used throughout the page to make text bold
+const strong80 = (chunks: ReactNode) => (
+  <strong className="opacity-80">{chunks}</strong>
+);
 
 export default function Home() {
   const locale = useLocale();
@@ -90,37 +95,24 @@ export default function Home() {
           </section>
           <section id="about-me" className="flex min-h-screen my-10 prose prose-invert">
             <div className="my-auto py-8">
-              <h1>About me.</h1>
-              <p>
-                <span className="text-green-200 text-xl mr-2">
-                  Hello there!
-                </span>{' '}
-                I am Sait.
-              </p>
-              <p>
-                Over the duration of my{' '}
-                <span className="text-green-300">3 years</span> of studies{' '}
-                <span className="text-green-300">
-                  I have been working as a web developer
-                </span>{' '}
-                <span className="text-gray-400">(20h/week)</span>.
-              </p>
-              <p>
-                I switched to working full time as a frontend developer in{' '}
-                <span className="text-cyan-300">07.2022</span> and collected{' '}
-                <u className="text-cyan-300">
-                  17 months of frontend development experience
-                </u>{' '}
-                with a great team of seasoned developers and engineers.
-              </p>
+              <h1>{t('aboutMeHeading')}</h1>
+              {t.rich('aboutMeText', {
+                p: (chunks: ReactNode) => <p className='mb-4'>{chunks}</p>,
+                green200: (chunks: ReactNode) => <span className="text-green-200" >{chunks}</span>,
+                green300: (chunks: ReactNode) => <span className="text-green-300" >{chunks}</span>,
+                gray400: (chunks: ReactNode) => <span className="text-gray-400">{chunks}</span>,
+                cyan300: (chunks: ReactNode) => <span className="text-cyan-300">{chunks}</span>,
+                cyan300u: (chunks: ReactNode) => (
+                  <span className="text-cyan-300 underline">{chunks}</span>
+                )
+              })}
             </div>
           </section>
           <section id="experience" className="flex min-h-screen my-10 prose prose-invert">
             <div className="my-auto py-8">
-              <h1>Experience</h1>
+              <h1>{t('experienceHeading')}</h1>
               <p>
-                I have worked on several websites and projects. Here are the
-                ones that I can publicly list:
+                {t('experienceText.firstParagraph')}
               </p>
               <ul className="text-2xl">
                 <li>
@@ -164,25 +156,16 @@ export default function Home() {
                   </a>
                 </li>
               </ul>
-              <p>
-                In my latest projects I have been using{' '}
-                <span className="text-cyan-200">React + Typescript.</span> I
-                implemented API integrations to the frontend with{' '}
-                <span className="text-white">Tanstack Query</span>, created a
-                graphical application with{' '}
-                <span className="text-cyan-200">konva.js</span>, and solved
-                several problems using different combinations of libraries.
-              </p>
-              <p>
-                In my early career I built websites for small companies. I
-                implemented designs and ideas in plain HTML, CSS, JS using
-                Wordpress in the backend.
-              </p>
+              {t.rich('experienceText.secondParagraph', {
+                p: (chunks) => <p>{chunks}</p>,
+                cyan200: (chunks) => <span className="text-cyan-200">{chunks}</span>,
+                white: (chunks) => <span className="text-white">{chunks}</span>
+              })}
             </div>
           </section>
           <section id="tech-i-use" className="flex min-h-screen mb-10 pt-32 prose prose-invert">
             <div className="my-auto py-8">
-              <h1 className="!font-bold">Tech I use</h1>
+              <h1 className="!font-bold">{t("techHeading")}</h1>
               <h2 className="opacity-90 font-medium">Javascript Libraries: </h2>
               <ul>
                 <li className="!text-xl">
@@ -212,8 +195,7 @@ export default function Home() {
               <ul>
                 <li className="!text-xl">
                   <ArchiveIcon className="w-10 inline-block mr-3 text-orange-300" />
-                  <strong className="opacity-80">Tanstack Query</strong> -
-                  library to manage fetched data
+                  {t.rich("techList.secondItem", { strong: strong80 })}
                 </li>
                 <li className="!text-xl">
                   <Image
@@ -223,8 +205,7 @@ export default function Home() {
                     width={40}
                     height={40}
                   />
-                  <strong className="opacity-80">shadcn/ui</strong> - component
-                  library
+                  {t.rich("techList.thirdItem", { strong: strong80 })}
                 </li>
                 <li className="!text-xl">
                   <Image
@@ -234,13 +215,12 @@ export default function Home() {
                     width={40}
                     height={40}
                   />
-                  <strong className="opacity-80">konva.js</strong> - canvas
-                  library for 2D graphics apps
+                  {t.rich("techList.fourthItem", { strong: strong80 })}
                 </li>
               </ul>
               <hr />
               <h2 className="!font-normal opacity-90 mb-5 mt-10">
-                Graphics Applications
+                {t('graphicsToolsHeading')}
               </h2>
               <ul className="text-xl space-y-4 leading-8">
                 <li>
@@ -254,8 +234,7 @@ export default function Home() {
                   />{' '}
                   OR{' '}
                   <AffinityPhotoLogo className="w-10 inline-block ml-1 mr-0" />{' '}
-                  - Used to work with Adobe Products and transitioned to
-                  Affinity Apps.
+                  - {t('graphicToolsList.firstItem')}
                 </li>
                 <li>
                   <div className="bg-black/30 w-10 h-10 text-center inline-flex mr-3 justify-center align-middle rounded-lg ">
@@ -267,15 +246,13 @@ export default function Home() {
                       height={30}
                     />{' '}
                   </div>
-                  <strong className="opacity-80">Figma</strong> - for web
-                  designs, from components to full pages.
+                  {t.rich("graphicToolsList.secondItem", { strong: strong80 })}
                 </li>
                 <li>
                   <div className="bg-black/20 w-10 h-10 text-center inline-flex mr-3 justify-center align-middle rounded-lg ">
                     <BlenderLogo className="inline-block w-8 opacity-90 my-auto" />{' '}
                   </div>
-                  For 3D I use blender.
-                  <div></div>
+                  {t('graphicToolsList.thirdItem')}
                 </li>
               </ul>
               <Button
@@ -287,21 +264,17 @@ export default function Home() {
                   target="_blank"
                   href="https://www.behance.net/dizzzy9?locale=de_DE"
                 >
-                  <span>🔗</span> Check out some of my art here <span>🔗</span>
+                  <span>🔗</span> {t('checkOutMyArt')} <span>🔗</span>
                 </Link>
               </Button>
               <hr />
-              <h2 className="!font-normal opacity-90">For Coding</h2>
+              <h2 className="!font-normal opacity-90">{t('codingToolsHeading')}</h2>
               <ul>
                 <li className="!text-xl">
-                  <strong className="opacity-80">
-                    IntelliJ IDEA, VSCode, Neovim
-                  </strong>{' '}
-                  - Any IDE will do
+                  {t.rich("codingToolsList.firstItem", { strong: strong80 })}
                 </li>
                 <li className="!text-xl">
-                  <strong className="opacity-80">Git + Lazygit</strong> -
-                  Version Control + TUI App
+                  {t.rich("codingToolsList.secondItem", { strong: strong80 })}
                 </li>
               </ul>
               <h2 className="!font-normal opacity-90 mb-3 mt-8">
@@ -309,16 +282,10 @@ export default function Home() {
               </h2>
               <ul>
                 <li className="!text-xl">
-                  <strong className="opacity-80">
-                    Next.js, Node.js + Express.js
-                  </strong>{' '}
-                  - will probably build my first full backend with Node.js +
-                  Express.js
+                  {t.rich("backendFrameworksList.firstItem", { strong: strong80 })}
                 </li>
                 <li className="!text-xl">
-                  <strong className="opacity-80">Java Spring Boot</strong> -
-                  will probably rebuild what I will have built in Node.js +
-                  Express.js in this tech stack as a learning.
+                  {t.rich("backendFrameworksList.secondItem", { strong: strong80 })}
                 </li>
               </ul>
             </div>
