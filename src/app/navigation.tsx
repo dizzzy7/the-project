@@ -1,21 +1,38 @@
-'use client';
+'use client'
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import GithubLogo from '../../public/GithubLogo.svg';
+import SaitLogo from '../../public/SaitLogo.svg';
 
 export default function Navigation() {
   const [isNavigationVisible, setIsNavigationVisible] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsNavigationVisible(false);
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      // Unbind the event listener on cleanup
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+
+  })
+
   return (
     <div className="border-l border-r border-slate-500 px-8 lg:px-0 bg-gray-800">
       <nav className="flex lg:flex-col lg:h-full lg:min-h-screen align-middle fixed top-0 left-0 right-0 lg:left-auto lg:right-auto px-5 lg:w-auto justify-between z-10">
-        <div>
-          <h1 className="pt-6 lg:pt-16 px-2 text-3xl lg:text-4xl font-bold tracking-wide relative bg-gradient-radial from-gray-800/90 via-gray-800/90 to-gray-800/5 shadow-gray-800 shadow-2xl rounded-lg">
-            Sait<span className="text-red-300">&apos;</span>s<br />
-            <span className="font-normal tracking-normal">Website</span>
-          </h1>
-        </div>
+        <h1 className="pt-6 sm:pt-8 lg:pt-32 px-2 text-3xl lg:text-4xl font-bold tracking-wide relative bg-gradient-radial from-gray-800/95 via-gray-800/95 to-gray-800/5 shadow-gray-800 shadow-2xl rounded-lg">
+          <SaitLogo className="[&_*]:!fill-slate-400 lg:w-56 sm:w-36 w-28 h-auto" />
+        </h1>
         <ul
           className={clsx(
             'space-y-5 flex flex-col pt-20 lg:pt-16 lg:p-12 lg:justify-center justify-start lg:h-full ml-auto fixed right-0 top-0 lg:static bg-gray-800 lg:border-0 border-b border-l pl-14 pr-4 pb-6 h-fit transition-transform lg:transition-none lg:translate-x-0 lg:opacity-100 opacity-0',
@@ -51,7 +68,9 @@ export default function Navigation() {
         </ul>
         <div
           className="fixed top-0 right-0 text-red-200 p-6 lg:hidden bg-gradient-radial from-gray-800/90 to-transparentshadow-2xl rounded-lg"
-          onClick={() => setIsNavigationVisible(!isNavigationVisible)}
+          onClick={(e) => {
+            setIsNavigationVisible(!isNavigationVisible)
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

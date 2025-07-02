@@ -32,7 +32,7 @@ export default function Home() {
       <Container>
         <Navigation />
         <div className="sm:px-12 prose prose-invert prose-p:text-lg prose-h1:font-medium prose-h1:text-3xl justify-self-stretch max-w-none">
-          <section id="app-previews" className="flex min-h-screen my-10">
+          <section id="app-previews" className="flex min-h-screen my-10 lg:mt-10 mt-24 ">
             <div className="my-auto py-8">
               <h1>{t('projectOverview')}</h1>
               <div className="sm:grid-cols-2 xl:grid-cols-3 grid-cols-1 grid gap-2">
