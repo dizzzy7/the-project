@@ -4,11 +4,9 @@ import { useEffect, useRef } from "react"
 function CanvasSettings() {
   const fps = 30
 
-  const { invalidate } = useThree();
   const lastTime = useRef(0)
   const frame = useRef<number>()
   const interval = 1000 / fps
-
 
   // limit the FPS to 30
   useEffect(() => {
