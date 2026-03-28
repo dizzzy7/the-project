@@ -4,13 +4,7 @@ import { useMemo, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import Graph from '@/components/data-visualization/Graph';
 import { Serie } from '@nivo/line';
-import {
-  format,
-  getDaysInMonth,
-  getDaysInYear,
-  subDays,
-  subMonths,
-} from 'date-fns';
+import { format, getDaysInMonth, subDays, subMonths } from 'date-fns';
 
 import {
   Select,
@@ -35,7 +29,13 @@ import {
 
 const CurrencyGraph = () => {
   const [currency, setCurrency] = useState('usd');
-  type DateRange = 'month' | 'threeMonths' | 'sixMonths' | 'aYear';
+  type DateRange = 'month' | 'twoMonths' | 'threeMonths';
+  const currencyColors: Record<string, string> = {
+    usd: 'hsl(197, 70%, 50%)',
+    try: 'hsl(35, 80%, 50%)',
+    eth: 'hsl(258, 70%, 55%)',
+    btc: 'hsl(48, 95%, 50%)',
+  };
 
   const currentDate = useMemo(() => {
     return subDays(new Date(), 1);
@@ -44,18 +44,12 @@ const CurrencyGraph = () => {
   const dateRanges = useMemo(() => {
     return {
       month: getDaysInMonth(currentDate),
+      twoMonths:
+        getDaysInMonth(currentDate) + getDaysInMonth(subMonths(currentDate, 1)),
       threeMonths:
         getDaysInMonth(currentDate) +
         getDaysInMonth(subMonths(currentDate, 1)) +
         getDaysInMonth(subMonths(currentDate, 2)),
-      sixMonths:
-        getDaysInMonth(currentDate) +
-        getDaysInMonth(subMonths(currentDate, 1)) +
-        getDaysInMonth(subMonths(currentDate, 2)) +
-        getDaysInMonth(subMonths(currentDate, 3)) +
-        getDaysInMonth(subMonths(currentDate, 4)) +
-        getDaysInMonth(subMonths(currentDate, 5)),
-      aYear: getDaysInYear(currentDate),
     };
   }, []);
 
@@ -80,7 +74,7 @@ const CurrencyGraph = () => {
     return relevantDates.map((relevantDate, index) => {
       const relevantDateFormatted = format(relevantDate, 'yyyy-MM-dd');
       return {
-        queryKey: [`currency-${currency}-${relevantDateFormatted}`],
+        queryKey: ['currency', currency, relevantDateFormatted],
         queryFn: async () => {
           const response = await fetch(
             `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${
@@ -108,23 +102,24 @@ const CurrencyGraph = () => {
     return true;
   }, [dataArray]);
 
-  let resultingCurrencyData: Serie | undefined;
-  let data;
+  const resultingCurrencyData = useMemo<Serie | undefined>(() => {
+    if (dataArray.indexOf(undefined) !== -1) {
+      return undefined;
+    }
 
-  if (dataArray.indexOf(undefined) === -1) {
-    data = dataArray.map((data, index) => {
+    const data = dataArray.map((data, index) => {
       return {
         x: format(relevantDates[index], 'dd.MM.yy'),
         y: data.eur[currency],
       };
     });
 
-    resultingCurrencyData = {
+    return {
       id: currency,
-      color: `hsl(${Math.random() * 100}, 70%, 50%)`,
-      data: data,
+      color: currencyColors[currency] ?? 'hsl(0, 0%, 60%)',
+      data,
     };
-  }
+  }, [currency, dataArray, relevantDates]);
 
   return (
     <div className="prose prose-invert mx-auto">
@@ -167,15 +162,17 @@ const CurrencyGraph = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="month">Past Month</SelectItem>
+            <SelectItem value="twoMonths">Past 2 Months</SelectItem>
             <SelectItem value="threeMonths">Past 3 Months</SelectItem>
-            <SelectItem value="sixMonths">Past 6 Months</SelectItem>
-            <SelectItem value="aYear">Past Year</SelectItem>
           </SelectContent>
         </Select>
       </div>
       {/* TODO: add proper ticks on the x and y axis */}
       {resultingCurrencyData !== undefined && areQueriesReady ? (
-        <Graph data={[resultingCurrencyData]} />
+        <Graph
+          key={`${currency}-${currentDateRange}`}
+          data={[resultingCurrencyData]}
+        />
       ) : (
         'Loading...'
       )}
