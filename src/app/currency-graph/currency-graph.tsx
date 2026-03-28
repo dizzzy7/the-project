@@ -1,10 +1,16 @@
 'use client';
 
-import { FC, useEffect, useMemo, useState } from 'react';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
+import { useQueries } from '@tanstack/react-query';
 import Graph from '@/components/data-visualization/Graph';
-import { Datum, Serie } from '@nivo/line';
-import { format, getDaysInMonth, subDays } from 'date-fns';
+import { Serie } from '@nivo/line';
+import {
+  format,
+  getDaysInMonth,
+  getDaysInYear,
+  subDays,
+  subMonths,
+} from 'date-fns';
 
 import {
   Select,
@@ -29,18 +35,46 @@ import {
 
 const CurrencyGraph = () => {
   const [currency, setCurrency] = useState('usd');
+  type DateRange = 'month' | 'threeMonths' | 'sixMonths' | 'aYear';
 
   const currentDate = useMemo(() => {
     return subDays(new Date(), 1);
   }, []);
 
+  const dateRanges = useMemo(() => {
+    return {
+      month: getDaysInMonth(currentDate),
+      threeMonths:
+        getDaysInMonth(currentDate) +
+        getDaysInMonth(subMonths(currentDate, 1)) +
+        getDaysInMonth(subMonths(currentDate, 2)),
+      sixMonths:
+        getDaysInMonth(currentDate) +
+        getDaysInMonth(subMonths(currentDate, 1)) +
+        getDaysInMonth(subMonths(currentDate, 2)) +
+        getDaysInMonth(subMonths(currentDate, 3)) +
+        getDaysInMonth(subMonths(currentDate, 4)) +
+        getDaysInMonth(subMonths(currentDate, 5)),
+      aYear: getDaysInYear(currentDate),
+    };
+  }, []);
+
+  // const [resultingCurrencyData, setResultingCurrencyData] = useState<
+  //   Serie | undefined
+  // >(undefined);
+
+  const [currentDateRange, setCurrentDateRange] = useState<DateRange>('month');
+
   const relevantDates = useMemo(() => {
-    const dates = Array.from({ length: 31 }, (_, i) => {
-      return subDays(currentDate, i);
-    });
+    const dates = Array.from(
+      { length: dateRanges[currentDateRange] },
+      (_, i) => {
+        return subDays(currentDate, i);
+      },
+    );
 
     return dates.reverse();
-  }, [currentDate]);
+  }, [currentDate, currentDateRange, dateRanges]);
 
   const queries = useMemo(() => {
     return relevantDates.map((relevantDate, index) => {
@@ -51,7 +85,7 @@ const CurrencyGraph = () => {
           const response = await fetch(
             `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${
               index === 0 ? 'latest' : relevantDateFormatted
-            }/v1/currencies/eur.json`
+            }/v1/currencies/eur.json`,
           );
           return await response.json();
         },
@@ -122,24 +156,28 @@ const CurrencyGraph = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="text-white text-center">
-        {/* Current Value: {graphData ? graphData.eur.usd : 'Hi'} */}
-      </div>
 
-      <Select defaultValue="month">
-        <SelectTrigger className="w-[180px] text-black">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="month">Past Month</SelectItem>
-          <SelectItem value="3month">Past 3 Months</SelectItem>
-          <SelectItem value="6month">Past 6 Months</SelectItem>
-          <SelectItem value="year">Past Year</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="flex items-center space-x-3 justify-center mt-4 w-full">
+        <Select
+          value={currentDateRange}
+          onValueChange={(value: DateRange) => setCurrentDateRange(value)}
+        >
+          <SelectTrigger className="w-[180px] text-black">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="month">Past Month</SelectItem>
+            <SelectItem value="threeMonths">Past 3 Months</SelectItem>
+            <SelectItem value="sixMonths">Past 6 Months</SelectItem>
+            <SelectItem value="aYear">Past Year</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       {/* TODO: add proper ticks on the x and y axis */}
-      {resultingCurrencyData !== undefined && (
+      {resultingCurrencyData !== undefined && areQueriesReady ? (
         <Graph data={[resultingCurrencyData]} />
+      ) : (
+        'Loading...'
       )}
     </div>
   );
