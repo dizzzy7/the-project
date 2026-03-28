@@ -17,30 +17,23 @@ const turbopackConfig = {
 };
 
 const nextConfig = {
-  // When using Webpack, keep the existing webpack customization. When running with
-  // Turbopack, provide the equivalent config under `turbopack` instead.
-  ...(usingWebpack
-    ? {
-        webpack: (config) => {
-          config.module.rules.push({
-            test: /.svg$/,
-            use: ['@svgr/webpack'],
-          });
+  // Apply webpack customization and provide the equivalent Turbopack config.
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /.svg$/,
+      use: ['@svgr/webpack'],
+    });
 
-          config.resolve.alias = {
-            ...config.resolve.alias,
-            '@public': path.resolve(__dirname, 'public'),
-          };
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@public': path.resolve(__dirname, 'public'),
+    };
 
-          config.externals = [
-            ...(config.externals || []),
-            { canvas: 'canvas' },
-          ];
+    config.externals = [...(config.externals || []), { canvas: 'canvas' }];
 
-          return config;
-        },
-      }
-    : { turbopack: turbopackConfig }),
+    return config;
+  },
+  turbopack: turbopackConfig,
 
   images: {
     remotePatterns: [
