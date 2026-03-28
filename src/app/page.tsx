@@ -14,9 +14,7 @@ import BlenderLogo from '@public/BlenderLogo.svg';
 import Image from 'next/image';
 import { useTransition } from 'react';
 
-
 export default function Home() {
-
   return (
     <main className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900  text-slate-100 [&_*]:min-w-0">
       <FixedGradientBottom />
@@ -37,7 +35,9 @@ export default function Home() {
                     height={800}
                   />
                   <span className="text-2xl drop-shadow-lg bg-slate-800/90 px-3 py-2 rounded-lg tracking-wide inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 text-center">
-                    Twitch Chat<br />Reader
+                    Twitch Chat
+                    <br />
+                    Reader
                   </span>
                 </Link>
                 <Link className="relative group" href="/notes">
@@ -70,22 +70,13 @@ export default function Home() {
                     height={800}
                   />
                 </Link>
-                <Link className="relative group" href="/pen-tool">
-                  <Image
-                    className="w-full h-full object-cover border border-slate-400 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity"
-                    src={'/PenToolAppScreenshot.png'}
-                    alt="Pen Tool App"
-                    width={800}
-                    height={800}
-                  />
-                  <span className="text-2xl drop-shadow-lg bg-slate-800/70 px-3 py-2 rounded-lg inline-block w-max absolute top-1/2 left-1/2 -translate-x-1/2 text-slate-200 tracking-wide text-center">
-                    Pen Tool<br /> Experiment
-                  </span>
-                </Link>
               </div>
             </div>
           </section>
-          <section id="about-me" className="flex min-h-screen my-10 prose prose-invert">
+          <section
+            id="about-me"
+            className="flex min-h-screen my-10 prose prose-invert"
+          >
             <div className="my-auto py-8">
               <h1>About me.</h1>
               <p>
@@ -112,7 +103,10 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section id="experience" className="flex min-h-screen my-10 prose prose-invert">
+          <section
+            id="experience"
+            className="flex min-h-screen my-10 prose prose-invert"
+          >
             <div className="my-auto py-8">
               <h1>Experience</h1>
               <p>
@@ -177,7 +171,10 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section id="tech-i-use" className="flex min-h-screen mb-10 pt-32 prose prose-invert">
+          <section
+            id="tech-i-use"
+            className="flex min-h-screen mb-10 pt-32 prose prose-invert"
+          >
             <div className="my-auto py-8">
               <h1 className="!font-bold">Tech I use</h1>
               <h2 className="opacity-90 font-medium">Javascript Libraries: </h2>
