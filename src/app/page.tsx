@@ -12,7 +12,6 @@ import AffinityPhotoLogo from '@public/AffinityPhotoLogo.svg';
 import ArchiveIcon from '@public/ArchiveIcon.svg';
 import BlenderLogo from '@public/BlenderLogo.svg';
 import Image from 'next/image';
-import { useTransition } from 'react';
 
 export default function Home() {
   return (
