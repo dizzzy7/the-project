@@ -1,26 +1,19 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 
-// Detect when Next is started with the --webpack flag so webpack-only customizations
-// are only applied when running Webpack. Turbopack will use the `turbopack` option.
-const usingWebpack = process.argv.includes('--webpack');
-
 const turbopackConfig = {
-  // Use Turbopack's loader support to apply SVGR for SVG -> React component imports
   rules: {
-    '*.svg': ['@svgr/webpack'],
-  },
-  // Map path aliases for Turbopack (matches webpack.resolve.alias)
-  resolveAlias: {
-    '@public': path.resolve(__dirname, 'public'),
+    '*.svg': {
+      loaders: ['@svgr/webpack'],
+      as: '*.js',
+    },
   },
 };
 
 const nextConfig = {
-  // Apply webpack customization and provide the equivalent Turbopack config.
   webpack: (config) => {
     config.module.rules.push({
-      test: /.svg$/,
+      test: /\.svg$/i,
       use: ['@svgr/webpack'],
     });
 
